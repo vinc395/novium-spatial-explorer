@@ -4,7 +4,7 @@ import { WORDMARK } from "./brand";
 export function Brand() {
   return (
     <span className="brand" title="NOVIUM Spatial Explorer">
-      <img className="brand-mark" src="/novium-mark.svg" alt="" />
+      <img className="brand-mark" src={`${import.meta.env.BASE_URL}novium-mark.svg`} alt="" />
       <span className="brand-text">
         <svg className="brand-word" viewBox={WORDMARK.viewBox} role="img" aria-label="NOVIUM">
           {WORDMARK.letters.map((l, i) => (

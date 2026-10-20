@@ -112,7 +112,14 @@ The demo runs without a server: `scripts/build_demo_site.sh` ingests two synthet
 sections, serves them locally, saves every reply the viewer needs as files
 (`scripts/export_demo.ts`, paths from `web/src/demoPaths.ts`; binary replies gzipped)
 and builds the viewer in demo mode (`VITE_DEMO=1`) into `site/`. Any static host can serve
-`site/`; for GitHub Pages, publish it as the root of a `gh-pages` branch. In the demo, gene
+`site/`; for GitHub Pages, publish it as the root of a `gh-pages` branch:
+```bash
+DEMO_REPO=https://github.com/<you>/<repo> scripts/build_demo_site.sh
+cd site && git init -q -b gh-pages && git add -A && git commit -qm "Online demo" \
+  && git push --force https://github.com/<you>/<repo>.git gh-pages
+(cd web && DEMO_URL=https://<you>.github.io/<repo>/ npx playwright test -c playwright.demo.config.ts)
+```
+In the demo, gene
 signature scoring and the server's CSV export are switched off (they need the server), and
 transcript density uses QV 20. **Never build a demo from real data:** every reply becomes a
 public file.
