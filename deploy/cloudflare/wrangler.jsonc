@@ -1,0 +1,15 @@
+// The "novium" Worker: novium.<account>.workers.dev -> Workers VPC -> tunnel -> 127.0.0.1:8444.
+// service_id comes from `npx wrangler vpc service create` (see docs/DEPLOYMENT.md).
+{
+  "name": "novium",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-16",
+  "workers_dev": true,
+  "preview_urls": false,
+  "vpc_services": [
+    {
+      "binding": "EXPLORER",
+      "service_id": "REPLACE-WITH-YOUR-VPC-SERVICE-ID"
+    }
+  ]
+}

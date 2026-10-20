@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2172" height="724" viewBox="0 0 2172 724">
+<title>NOVIUM Spatial Explorer</title><desc>Vector recreation of the supplied logo with outlined custom lettering, gradient ribbons, and an orbital chain. Transparent background.</desc>
+<defs>
+<linearGradient id="wordmark" gradientUnits="userSpaceOnUse" x1="0" y1="190" x2="0" y2="610"><stop stop-color="#001958" /><stop offset="1" stop-color="#00164e" /></linearGradient>
+<linearGradient id="orbit" gradientUnits="userSpaceOnUse" x1="374" y1="118" x2="400" y2="540"><stop stop-color="#6daaf4" /><stop offset=".36" stop-color="#a6e3fc" /><stop offset=".65" stop-color="#ac8cff" /><stop offset="1" stop-color="#9170ef" /></linearGradient>
+<linearGradient id="outer" gradientUnits="userSpaceOnUse" x1="170" y1="38" x2="180" y2="607"><stop stop-color="#bee9fa" /><stop offset=".25" stop-color="#8bd0f5" /><stop offset=".49" stop-color="#0055ad" /><stop offset=".65" stop-color="#1477cb" /><stop offset=".88" stop-color="#80cff4" /><stop offset="1" stop-color="#b4e7fa" /></linearGradient>
+<linearGradient id="back" gradientUnits="userSpaceOnUse" x1="250" y1="213" x2="361" y2="453"><stop stop-color="#263f9b" /><stop offset=".34" stop-color="#9d74c1" /><stop offset=".65" stop-color="#f1a4cd" /><stop offset="1" stop-color="#b779bb" /></linearGradient>
+<linearGradient id="front" gradientUnits="userSpaceOnUse" x1="139" y1="168" x2="318" y2="405"><stop stop-color="#4a7fe5" /><stop offset=".37" stop-color="#718cf3" /><stop offset=".65" stop-color="#b99bf0" /><stop offset="1" stop-color="#f8b8dc" /></linearGradient>
+<linearGradient id="lower" gradientUnits="userSpaceOnUse" x1="119" y1="345" x2="308" y2="527"><stop stop-color="#003374" /><stop offset=".29" stop-color="#1650b1" /><stop offset=".58" stop-color="#6751b6" /><stop offset=".82" stop-color="#2b2981" /><stop offset="1" stop-color="#001647" /></linearGradient>
+<linearGradient id="edge" gradientUnits="userSpaceOnUse" x1="120" y1="260" x2="319" y2="501"><stop stop-color="#b3edff" /><stop offset=".45" stop-color="#f1f5ff" /><stop offset="1" stop-color="#d9dcff" /></linearGradient>
+<radialGradient id="node1" cx=".3" cy=".25" r=".95"><stop stop-color="#063991" /><stop offset="1" stop-color="#002474" /></radialGradient>
+<radialGradient id="node2" cx=".3" cy=".2" r=".95"><stop stop-color="#3aace6" /><stop offset="1" stop-color="#1077c9" /></radialGradient>
+<radialGradient id="node3" cx=".3" cy=".2" r=".95"><stop stop-color="#5e95df" /><stop offset="1" stop-color="#3b64bf" /></radialGradient>
+<radialGradient id="node4" cx=".3" cy=".2" r=".95"><stop stop-color="#a47ad4" /><stop offset="1" stop-color="#6142a8" /></radialGradient>
+<radialGradient id="node5" cx=".3" cy=".2" r=".95"><stop stop-color="#174292" /><stop offset="1" stop-color="#062275" /></radialGradient>
+<radialGradient id="node6" cx=".3" cy=".2" r=".95"><stop stop-color="#e8aedb" /><stop offset="1" stop-color="#cb83c5" /></radialGradient>
+</defs><rect x="0" y="0" width="2172" height="724" fill="#ffffff"/>
+<g id="01_Orbital_Chain" data-name="01 Orbital Chain">
+<g transform="translate(50 40)">
+<path d="M317 113 C392 137 448 177 478 239 C510 301 495 377 462 429 C428 484 378 522 325 536" fill="none" stroke="url(#orbit)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="317" cy="113" r="28" fill="url(#node1)" stroke="none" stroke-width="1" />
+<circle cx="432" cy="182" r="32" fill="url(#node2)" stroke="none" stroke-width="1" />
+<circle cx="495" cy="289" r="36" fill="url(#node3)" stroke="none" stroke-width="1" />
+<circle cx="464" cy="421" r="36" fill="url(#node4)" stroke="none" stroke-width="1" />
+<circle cx="402" cy="495" r="21" fill="url(#node5)" stroke="none" stroke-width="1" />
+<circle cx="325" cy="536" r="23" fill="url(#node6)" stroke="none" stroke-width="1" />
+</g>
+</g>
+<g id="02_Back_Ribbon" data-name="02 Back Ribbon">
+<g transform="translate(50 40)">
+<path d="M251 45 L263 47 C248 101 250 154 273 193 C294 225 333 250 357 277 C390 312 406 354 384 401 C363 443 329 469 305 511 C290 542 282 568 281 589 L272 568 C281 513 297 469 318 418 C343 367 342 336 313 297 C288 264 257 228 243 196 C226 152 234 97 251 45 Z" fill="url(#back)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+</g>
+<g id="03_Main_Gradient_Ribbon" data-name="03 Main Gradient Ribbon">
+<g transform="translate(50 40)">
+<path d="M251 45 C229 107 204 153 165 196 C143 220 115 249 119 272 C124 291 145 302 166 310 C198 324 239 338 266 346 C295 354 319 361 323 388 C326 407 313 433 305 456 C290 495 282 529 281 568 L281 589 C285 539 301 498 321 459 C344 413 358 377 346 344 C335 311 302 280 273 240 C249 214 234 186 232 151 C229 119 241 76 251 45 Z" fill="url(#front)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M251 45 C229 107 204 153 165 196 C143 220 115 249 119 272 C124 291 145 302 166 310 C198 324 239 338 266 346 C295 354 319 361 323 388 C326 407 313 433 305 456" fill="none" stroke="url(#edge)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+</g>
+<g id="04_Deep_Blue_Fold" data-name="04 Deep Blue Fold">
+<g transform="translate(50 40)">
+<path d="M251 45 L263 47 C248 101 250 154 273 193 C292 224 326 251 351 283 C370 316 376 348 362 385 C352 422 331 454 312 486 C292 522 284 557 281 589 L275 584 C278 539 290 499 310 460 C333 414 350 377 344 349 C338 319 311 288 284 259 C257 230 239 201 233 171 C226 135 235 86 251 45 Z" fill="#001c5b" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+</g>
+<g id="05_Lower_Ribbon" data-name="05 Lower Ribbon">
+<g transform="translate(50 40)">
+<path d="M121 325 C140 325 164 342 200 356 C225 366 260 370 282 378 C309 387 320 404 309 435 C292 473 283 517 281 589 L276 584 C270 541 253 502 224 472 C191 440 158 421 130 399 C109 384 100 368 103 349 C105 333 110 326 121 325 Z" fill="url(#lower)" stroke="url(#edge)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+</g>
+<g id="06_Outer_Cyan_Ribbon" data-name="06 Outer Cyan Ribbon">
+<g transform="translate(50 40)">
+<path d="M222 38 L251 45 C230 120 182 180 137 222 C110 252 96 272 85 296 C74 324 78 345 91 369 C111 399 151 420 190 451 C234 486 260 534 276 587 L247 607 C236 559 214 520 183 490 C151 459 100 433 71 400 C40 367 30 334 44 294 C59 250 103 208 142 164 C176 126 205 79 222 38 Z" fill="url(#outer)" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M222 38 L251 45" fill="none" stroke="#c1edfa" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+</g>
+<g id="07_NOVIUM_Clean_Geometric_Wordmark" data-name="07 NOVIUM - clean geometric wordmark" fill="url(#wordmark)"><path id="NOVIUM_N" data-name="Letter N" d="M637 210 C624 210 613 220 613 234 L613 442 Q613 466 637 466 L654 466 Q679 466 679 442 L679 315 L799 450 C813 466 832 472 849 461 C861 454 866 442 866 426 L866 232 Q866 208 842 208 L823 208 Q799 208 799 232 L799 365 L670 231 C657 217 649 210 637 210 Z" fill-rule="evenodd" /><path id="NOVIUM_O" data-name="Letter O" d="M1159 337.5 A136 131.5 0 1 1 887 337.5 A136 131.5 0 1 1 1159 337.5 Z M1099 337.5 A76 78.5 0 1 1 947 337.5 A76 78.5 0 1 1 1099 337.5 Z" fill-rule="evenodd" /><path id="NOVIUM_V" data-name="Letter V" d="M1164 208 L1198 208 Q1217 208 1224 225 L1280 358 L1346 225 Q1354 208 1371 208 L1402 208 Q1423 208 1413 228 L1310 449 Q1303 466 1285 466 Q1266 466 1259 449 L1152 228 Q1141 208 1164 208 Z" fill-rule="evenodd" /><rect id="NOVIUM_I" data-name="Letter I" x="1434" y="208" width="63" height="258" rx="19" /><path id="NOVIUM_U" data-name="Letter U" d="M1555 208 L1580 208 Q1600 208 1600 228 L1600 374 C1600 400 1620 412 1651 412 C1681 412 1704 400 1704 374 L1704 228 Q1704 208 1724 208 L1748 208 Q1768 208 1768 228 L1768 374 C1768 433 1727 469 1651 469 C1575 469 1535 433 1535 374 L1535 228 Q1535 208 1555 208 Z" /><path id="NOVIUM_M" data-name="Letter M" d="M1818 209 C1805 209 1795 219 1795 234 L1795 442 Q1795 466 1819 466 L1837 466 Q1861 466 1861 442 L1861 333 L1919 404 Q1935 421 1951 404 L2011 333 L2011 442 Q2011 466 2035 466 L2053 466 Q2077 466 2077 442 L2077 234 C2077 210 2057 202 2042 211 C2032 217 2025 225 2016 237 L1936 335 L1855 237 C1844 222 1833 209 1818 209 Z" /></g><g id="08_Spatial_Explorer_Clean_Typography" data-name="08 Spatial Explorer - clean typography"><text transform="translate(1102 581) scale(1.02969247 1)" x="0" y="0" font-family="Century Gothic" font-size="128" font-weight="normal" fill="url(#wordmark)" stroke="#001754" stroke-width="1.4" stroke-linejoin="round" paint-order="stroke fill">Spatial Explorer</text></g></svg>

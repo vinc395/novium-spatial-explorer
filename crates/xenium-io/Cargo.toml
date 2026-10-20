@@ -1,0 +1,28 @@
+[package]
+name = "xenium-io"
+description = "Native readers for Xenium outputs, tables and TIFF images (no GUI dependencies)"
+edition.workspace = true
+license.workspace = true
+version.workspace = true
+
+[dependencies]
+xenium-core = { path = "../xenium-core" }
+anyhow = "1.0"
+arrow = { version = "60", default-features = false, features = ["prettyprint"] }
+parquet = { version = "60", default-features = false, features = ["arrow", "snap", "zstd", "lz4", "flate2-rust_backend", "brotli"] }
+csv = "1.4"
+flate2 = "1.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.10"
+tiff = "0.11"
+thiserror = "2.0"
+jpeg2k = { version = "0.10.1", default-features = false, features = ["openjpeg-sys", "threads"] }
+pure_j2k = { package = "pure_jpeg2k", version = "2.0.0" }
+rayon = "1.12"
+
+[dev-dependencies]
+tempfile = "3"
+
+[lints]
+workspace = true

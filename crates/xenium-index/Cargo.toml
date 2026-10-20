@@ -1,0 +1,27 @@
+[package]
+name = "xenium-index"
+description = "Offline, restartable spatial index builder and reader for xenium-web"
+edition.workspace = true
+license.workspace = true
+version.workspace = true
+
+[dependencies]
+xenium-core = { path = "../xenium-core" }
+xenium-io = { path = "../xenium-io" }
+anyhow = "1.0"
+flate2 = "1.1"
+jpeg-encoder = "0.7"
+libc = "0.2"
+lru = "0.18"
+rayon = "1.12"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+zune-core = "0.5"
+zune-jpeg = "0.5"
+
+[dev-dependencies]
+tempfile = "3"
+
+[lints]
+workspace = true

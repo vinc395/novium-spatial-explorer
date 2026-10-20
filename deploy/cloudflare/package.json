@@ -1,0 +1,11 @@
+{
+  "name": "novium-cloudflare",
+  "private": true,
+  "description": "Deploys the novium Worker (fixed workers.dev address for the public explorer)",
+  "scripts": {
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.146.0"
+  }
+}
