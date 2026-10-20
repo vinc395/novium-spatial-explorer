@@ -1,4 +1,9 @@
-# NOVIUM Spatial Explorer
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/brand/novium-logo-dark.svg">
+    <img src="docs/brand/novium-logo.svg" alt="NOVIUM Spatial Explorer" width="560">
+  </picture>
+</h1>
 
 A fast web viewer for **10x Genomics Xenium** spatial transcriptomics together with the
 **registered H&E** and the **morphology stains** of the same section. A Rust import step
