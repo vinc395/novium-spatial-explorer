@@ -54,6 +54,33 @@ export function decodePoints(buf: ArrayBuffer): PointsTile {
   return { flags, count: n, segments, records: new DataView(buf, recordOffset), buffer: buf, recordOffset };
 }
 
+/** An XPT1 tile with only the records of `genes` (the online demo stores every gene per tile). */
+export function selectPointGenes(buf: ArrayBuffer, genes: number[]): ArrayBuffer {
+  const t = decodePoints(buf);
+  const want = new Set(genes);
+  const keep: { geneId: number; count: number; from: number }[] = [];
+  let at = 0;
+  for (const seg of t.segments) {
+    if (want.has(seg.geneId)) keep.push({ ...seg, from: at });
+    at += seg.count;
+  }
+  const n = keep.reduce((a, k) => a + k.count, 0);
+  const out = new ArrayBuffer(16 + 8 * keep.length + POINT_RECORD_BYTES * n);
+  const src = new Uint8Array(buf), dst = new Uint8Array(out), dv = new DataView(out);
+  dst.set(src.subarray(0, 8)); // magic, version, flags
+  dv.setUint32(8, n, true);
+  dv.setUint32(12, keep.length, true);
+  let o = 16 + 8 * keep.length;
+  keep.forEach((k, i) => {
+    dv.setUint32(16 + 8 * i, k.geneId, true);
+    dv.setUint32(20 + 8 * i, k.count, true);
+    const a = t.recordOffset + POINT_RECORD_BYTES * k.from;
+    dst.set(src.subarray(a, a + POINT_RECORD_BYTES * k.count), o);
+    o += POINT_RECORD_BYTES * k.count;
+  });
+  return out;
+}
+
 export interface PolygonChunk {
   kind: number;
   cellKeys: Uint32Array;

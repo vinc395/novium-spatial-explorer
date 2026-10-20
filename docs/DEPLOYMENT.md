@@ -107,6 +107,16 @@ index). `scripts/slurm_ingest.sbatch` is a Slurm template: run `xenium-web inspe
 first, then submit one job per section. Copying an index elsewhere moves the
 (patient-derived) data it contains, so check that it is permitted first.
 
+## Online demo (GitHub Pages)
+The demo runs without a server: `scripts/build_demo_site.sh` ingests two synthetic
+sections, serves them locally, saves every reply the viewer needs as files
+(`scripts/export_demo.ts`, paths from `web/src/demoPaths.ts`; binary replies gzipped)
+and builds the viewer in demo mode (`VITE_DEMO=1`) into `site/`. Any static host can serve
+`site/`; for GitHub Pages, publish it as the root of a `gh-pages` branch. In the demo, gene
+signature scoring and the server's CSV export are switched off (they need the server), and
+transcript density uses QV 20. **Never build a demo from real data:** every reply becomes a
+public file.
+
 ## Storage notes
 A section index is a few dozen files (image tiles and cell fields are packed), which
 suits network and USB drives. On a USB NTFS drive under Linux, avoid deleting old index

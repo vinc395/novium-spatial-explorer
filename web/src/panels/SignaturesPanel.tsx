@@ -4,7 +4,7 @@
 // Parquet export.
 
 import { useEffect, useMemo, useState } from "react";
-import { ucellApi } from "../api";
+import { DEMO, ucellApi } from "../api";
 import { deleteUcellResult, loadSignatures, scoreSelected, ucellLabel } from "../data";
 import { activePanel, getState, setState, setUcell, useStore } from "../store";
 import { COLORMAPS } from "../colors";
@@ -21,6 +21,23 @@ interface Draft {
 }
 
 export function SignaturesPanel() {
+  return DEMO ? <DemoNote /> : <LiveSignaturesPanel />;
+}
+
+/** The online demo has no server to score with. */
+function DemoNote() {
+  return (
+    <section className="ucell" aria-label="Gene signatures">
+      <h3>Gene signatures (UCell)</h3>
+      <p className="muted small">
+        Scoring gene signatures runs on the server, so it is not part of this online demo. Install NOVIUM Spatial Explorer to
+        score signatures in your own data.
+      </p>
+    </section>
+  );
+}
+
+function LiveSignaturesPanel() {
   const u = useStore((s) => s.ucell);
   const p = useStore((s) => activePanel(s));
   const sections = useStore((s) => [...new Set(s.panels.filter((x) => x.manifest).map((x) => x.sectionId))].length);

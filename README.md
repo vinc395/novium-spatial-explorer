@@ -12,6 +12,9 @@ current view needs to one WebGL2 canvas (deck.gl) in the browser. Whole cohorts 
 sections (hundreds of thousands of cells, tens of millions of transcripts) stay smooth on
 an ordinary workstation, and colleagues only need a browser.
 
+**[Try the online demo](https://vinc395.github.io/novium-spatial-explorer/)**: two small
+synthetic sections (generated, not biological data) in your browser, no installation.
+
 The command-line tool and code use the working name `xenium-web`.
 
 ## What it shows
@@ -105,6 +108,10 @@ scripts/              verification, LAN serving, systemd service, Cloudflare tun
 ```
 
 ## Development
+
+The online demo is built with `scripts/build_demo_site.sh` (synthetic data only) and
+checked with `cd web && npx playwright test -c playwright.demo.config.ts`; see
+[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md#online-demo-github-pages).
 
 `scripts/verify.sh` runs every check: `cargo fmt --check`, clippy with `-D warnings`, the
 Rust tests, TypeScript type checks, vitest, the web build, a synthetic ingest and

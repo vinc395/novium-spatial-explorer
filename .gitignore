@@ -19,3 +19,4 @@ node_modules/
 *.tsbuildinfo
 /deploy/cloudflare/.wrangler/
 /.claude/
+/site/

@@ -7,7 +7,7 @@
 import type { Layer } from "@deck.gl/core";
 import { BitmapLayer } from "@deck.gl/layers";
 import { TileLayer } from "@deck.gl/geo-layers";
-import type { SectionApi } from "../api";
+import { apiUrl, type SectionApi } from "../api";
 import type { MorphChannel } from "../store";
 import type { ImageInfo } from "../types";
 import { affineToMatrix4 } from "./layers";
@@ -59,7 +59,9 @@ interface MorphTile {
 
 /** Fetch one JPEG tile and return its luminance. */
 async function loadGray(url: string, signal?: AbortSignal): Promise<{ w: number; h: number; px: Uint8Array } | null> {
-  const r = await fetch(url, { signal });
+  const u = apiUrl(url);
+  if (!u) return null;
+  const r = await fetch(u, { signal });
   if (!r.ok) return null;
   const bmp = await createImageBitmap(await r.blob());
   const { width: w, height: h } = bmp;

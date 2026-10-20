@@ -232,4 +232,4 @@ button.toggle.on { background: var(--accent); color: var(--on-accent); border-co
 .modal .export-size { margin: 2px 0 8px 108px; }
 .modal-actions { gap: 8px; margin-top: 12px; }
 .modal button.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-
+.demo-badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: var(--accent); color: var(--on-accent); text-decoration: none; white-space: nowrap; }

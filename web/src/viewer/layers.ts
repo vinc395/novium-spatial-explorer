@@ -6,7 +6,7 @@ import { COORDINATE_SYSTEM } from "@deck.gl/core";
 import { BitmapLayer, PathLayer, ScatterplotLayer, SolidPolygonLayer } from "@deck.gl/layers";
 import { TileLayer } from "@deck.gl/geo-layers";
 import { DataFilterExtension } from "@deck.gl/extensions";
-import { getBuffer, type SectionApi } from "../api";
+import { apiUrl, getBuffer, type SectionApi } from "../api";
 import { decodeDensity, decodePoints, decodePolygons, tileKey, POINT_FLAG_OVERLAPS_NUCLEUS, QV_SCALE, type PolygonChunk } from "../codecs";
 import { hexToRgba } from "../colors";
 import type { AppState, GridImage, UcellImage } from "../store";
@@ -49,7 +49,9 @@ export function affineToMatrix4(m: number[][]): number[] {
 }
 
 async function loadBitmap(url: string, signal?: AbortSignal): Promise<ImageBitmap | null> {
-  const r = await fetch(url, { signal });
+  const u = apiUrl(url);
+  if (!u) return null;
+  const r = await fetch(u, { signal });
   if (!r.ok) return null;
   return createImageBitmap(await r.blob());
 }
@@ -490,7 +492,7 @@ export function transcriptLayers({ s, m, mode, onStatus }: TxArgs): Layer[] {
           const k = tileKey(tx, ty);
           const counts = ids.map((g) => s.geneTileCounts.get(g));
           if (counts.every((c) => c && !c.has(k))) return EMPTY_POINTS;
-          return preparePoints(await getBuffer(api.pointsUrl(tx, ty, ids), signal));
+          return preparePoints(await api.pointsTile(tx, ty, ids, signal));
         },
         renderVersion: `${colorKey}|${qvMin}|${showUnassigned}|${pointSize}|${opacity}`,
         maxVisibleTiles: 160,

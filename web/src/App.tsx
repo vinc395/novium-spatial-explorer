@@ -10,7 +10,10 @@ import { ExportDialog } from "./panels/ExportDialog";
 import { sectionLabel } from "./types";
 import { applyTheme, type ThemeChoice } from "./theme";
 import { Brand } from "./Brand";
-import { session } from "./api";
+import { DEMO, session } from "./api";
+
+/** The project page linked from the demo badge (set when the demo is built). */
+const DEMO_REPO = (import.meta.env.VITE_DEMO_REPO as string | undefined) ?? "";
 
 const MAX_PANELS = 4;
 
@@ -151,6 +154,11 @@ export function App() {
           ◧
         </button>
         <Brand />
+        {DEMO && (
+          <a className="demo-badge" href={DEMO_REPO || undefined} target="_blank" rel="noreferrer" title="An online demo with synthetic (not biological) data. Get NOVIUM Spatial Explorer to view your own Xenium data.">
+            Demo · synthetic data
+          </a>
+        )}
         <select
           value={active.sectionId ?? ""}
           onChange={(e) => openSection(active.slot, e.target.value)}
