@@ -136,7 +136,9 @@ aaabbccd-1,Fibroblast,2,0.81
 - Every column becomes a field you can colour by: numeric when all values are numbers,
   otherwise categories (up to 2,000 distinct values; any number of colours).
 - `--annotation-columns` picks and orders columns: `*` globs, `:cat` treats numbers as
-  categories (e.g. cluster IDs), `:num` forces numbers. The first one is the default colour.
+  categories (e.g. cluster IDs), `:num` forces numbers. The viewer first colours by
+  `major_cell_type` if there is one, otherwise `fine_cell_type`, otherwise the first
+  categorical column.
 - Repeat `--annotations` for several tables; each column comes from the first table that
   has it. Missing values (`""`, `NA`, `NaN`, `null`, `None`) are shown grey (or hidden).
 - Cells absent from `cells.parquet` are ignored and counted in the import report.
@@ -210,7 +212,12 @@ x_um,y_um,niche_label,program_1,program_2
 ```
 `x_um`/`y_um` are the centres of the grid squares in Xenium µm (other names with
 `--grid-x-col` / `--grid-y-col`); the spacing is inferred or set with `--grid-spacing-um`.
-Grids are drawn as squares, independent of the cells. Repeat `--grid` for several grids.
+Grids are independent of the cells. The viewer draws them smoothed (display only: each
+label is interpolated with a cubic B-spline onto pixels of about 2 µm, as
+`scipy.ndimage.zoom(order=3)` does, and each pixel takes the label with the largest value;
+numeric values are interpolated the same way), or as one square per point with "smooth"
+off. Their legends have the same colour controls as the cell legends. Repeat `--grid` for
+several grids.
 
 ## 7. Per-sample information (shown in the Index panel)
 

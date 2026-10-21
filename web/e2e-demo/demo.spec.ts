@@ -55,6 +55,15 @@ test("the online demo works from static files alone", async ({ page }) => {
   await page.getByRole("button", { name: /^Legend/ }).click();
   await expect(page.locator(".legend-title").first()).toContainText("CXCL8_CXCR2");
 
+  // The niche grid, drawn smoothed by default.
+  const gridBox = page.locator("section", { has: page.getByRole("heading", { name: "Segmentation-free grids" }) });
+  await gridBox.getByRole("checkbox").first().check();
+  await gridBox.getByLabel("Grid field").selectOption("niche_label");
+  await expect(page.locator(".legend", { hasText: "niches: niche_label" })).toBeVisible();
+  await expect(gridBox.getByRole("checkbox", { name: "smooth" })).toBeChecked();
+  await expect(gridBox).toContainText(/drawn smoothed onto [\d.]+ µm pixels/);
+  expect(served.get("grids") ?? 0).toBeGreaterThan(0);
+
   // Side by side with the second section.
   await page.getByLabel("Number of panels").selectOption("2");
   await page.locator(".panel-frame").nth(1).locator("select").selectOption("DEMO2");

@@ -5,6 +5,7 @@
 import { ApiError, getBuffer, listSections, SectionApi, ucellApi } from "./api";
 import { decodeCentroids, decodeField, decodeGeneTiles, decodeGridRaster, type FieldColumn, type GridRaster } from "./codecs";
 import { colormapLut, MISSING, type RGBA } from "./colors";
+import { labelSmoother, smoothFactor, valueSmoother } from "./gridSmooth";
 import { categoryPalette, type PaletteChoice } from "./palettes";
 import { geneIdsByName, getState, panelBySlot, resetPanel, setPanel, setState, setUcell, ucellResultByKey, type ColorBy, type Overlay } from "./store";
 import type { BinGrid, FieldInfo, Manifest, UcellJob, UcellResult } from "./types";
@@ -16,6 +17,8 @@ export interface SectionData {
   geneTiles: Map<number, Promise<Map<number, number>>>;
   /** Decoded grid rasters by `grid/field` (toggling categories must not refetch). */
   rasters: Map<string, Promise<GridRaster>>;
+  /** The last smoothed grid raster (recolouring reuses it). */
+  smoothed?: { key: string; out: Promise<ArrayLike<number> | null> };
 }
 
 const bySlot = new Map<number, SectionData>();
@@ -55,10 +58,8 @@ export async function openSection(slot: number, sectionId: string) {
     // First section loaded: pick sensible shared defaults.
     const s = getState();
     if (!s.colorBy.source) {
-      const fine =
-        manifest.cells?.fields.find((f) => f.id === "fine_cell_type") ??
-        manifest.cells?.fields.find((f) => f.kind === "categorical" && f.group !== "cells");
-      if (fine) setState({ colorBy: { ...s.colorBy, source: fine.id, range: null, hidden: new Set() } });
+      const first = defaultColorField(manifest.cells?.fields ?? []);
+      if (first) setState({ colorBy: { ...s.colorBy, source: first.id, range: null, hidden: new Set() } });
     }
     if (!getState().grid.gridId && manifest.grids[0]) {
       const g = manifest.grids[0];
@@ -170,6 +171,13 @@ function quantile(sorted: Float32Array, q: number) {
   return sorted[Math.min(sorted.length - 1, Math.max(0, Math.round((sorted.length - 1) * q)))];
 }
 
+/** What cells are coloured by when the first section opens: the major cell type when there
+ *  is one, otherwise a fine cell type, otherwise the first categorical annotation. */
+export function defaultColorField(fields: FieldInfo[]): FieldInfo | undefined {
+  const cat = (id: string) => fields.find((f) => f.id === id && f.kind === "categorical");
+  return cat("major_cell_type") ?? cat("fine_cell_type") ?? fields.find((f) => f.kind === "categorical" && f.group !== "cells");
+}
+
 /** One palette per field across all open panels: categories are coloured by their
  *  index in the sorted union of names, so a name has the same colour in every panel
  *  (in the field's chosen scheme and order, with any colours picked by hand). */
@@ -185,11 +193,15 @@ function fieldPalette(fieldId: string): Map<string, RGBA> {
   );
 }
 
+/** The colour choices of a grid field, kept apart from cell fields of the same name. */
+export const gridPaletteKey = (gridId: string, fieldId: string) => `grid:${gridId}/${fieldId}`;
+
 function gridPalette(gridId: string, fieldId: string): Map<string, RGBA> {
   return unionPalette(
     getState().panels.map((p) =>
       p.manifest?.grids.find((g) => g.id === gridId)?.fields.find((f) => f.id === fieldId)?.categories?.map((c) => c.name),
     ),
+    getState().palettes[gridPaletteKey(gridId, fieldId)],
   );
 }
 
@@ -365,12 +377,41 @@ async function recomputeSlot(slot: number) {
   }));
 }
 
-/** RGBA image for the shared grid selection (nearest-neighbour; one pixel per grid cell). */
+/** RGBA image for the shared grid selection: one pixel per grid cell, or smoothed onto
+ * about 2 µm pixels (gridSmooth.ts) when `grid.smooth` is on. Built only while the grid
+ * is shown. */
 export async function buildGridImage(onlySlot?: number) {
   await Promise.resolve();
   const slots = getState().panels.map((p) => p.slot).filter((s) => onlySlot === undefined || s === onlySlot);
   await Promise.all(slots.map((s) => buildGridSlot(s)));
 }
+
+/** A grid raster smoothed to F× the resolution, in slices of about 12 ms so the page stays
+ * responsive; null when it stops being wanted before it is done. */
+function smoothRaster(d: SectionData, key: string, r: GridRaster, F: number, wanted: () => boolean): Promise<ArrayLike<number> | null> {
+  if (d.smoothed?.key === key) return d.smoothed.out;
+  const out = (async () => {
+    const sm = r.column.kind === "categorical" ? labelSmoother(r.column.codes, r.width, r.height, F) : valueSmoother(r.column.values, r.width, r.height, F);
+    for (let i = 0; i < sm.steps; ) {
+      await new Promise((res) => setTimeout(res, 0));
+      if (!wanted()) return null;
+      const t0 = performance.now();
+      do sm.step(i++);
+      while (i < sm.steps && performance.now() - t0 < 12);
+    }
+    return sm.out;
+  })();
+  const entry = { key, out };
+  d.smoothed = entry;
+  const drop = () => {
+    if (d.smoothed === entry) d.smoothed = undefined;
+  };
+  out.then((v) => v || drop(), drop);
+  return out;
+}
+
+/** One RGBA colour as a pixel of a Uint32Array view on ImageData (platform byte order). */
+const packRgba = (c: ArrayLike<number>) => new Uint32Array(Uint8ClampedArray.from(c).buffer)[0];
 
 async function buildGridSlot(slot: number) {
   const s = getState();
@@ -386,9 +427,17 @@ async function buildGridSlot(slot: number) {
     }
     return;
   }
-  const want = (st: typeof s) =>
-    `${keyOf(slot)}|${st.grid.gridId}|${st.grid.fieldId}|${st.grid.colormap}|${[...st.grid.hidden].sort().join("\u0000")}`;
+  if (!s.grid.visible) return;
+  // The colours as drawn (the palette is shared with the other panels, so opening a
+  // section can change it), or the colormap.
+  const look = (st: typeof s) => {
+    if (f.kind !== "categorical") return st.grid.colormap;
+    const byName = gridPalette(g.id, f.id);
+    return (f.categories ?? []).map((c) => (st.grid.hidden.has(c.name) ? "-" : String(byName.get(c.name) ?? MISSING))).join(";");
+  };
+  const want = (st: typeof s) => `${keyOf(slot)}|${st.grid.gridId}|${st.grid.fieldId}|${st.grid.smooth}|${look(st)}`;
   const key = want(s);
+  if (p.gridImage?.key === key) return; // e.g. only the opacity changed
   const rkey = `${g.id}/${f.id}`;
   let rp = d.rasters.get(rkey);
   if (!rp) {
@@ -397,17 +446,31 @@ async function buildGridSlot(slot: number) {
     d.rasters.set(rkey, rp);
   }
   const r = await rp;
-  const img = new ImageData(r.width, r.height);
+  const F = s.grid.smooth ? smoothFactor(r.width, r.height, g.spacing_um) : 1;
+  let data: ArrayLike<number> = r.column.kind === "categorical" ? r.column.codes : r.column.values;
+  if (F > 1) {
+    const wanted = () => {
+      const st = getState();
+      return bySlot.get(slot) === d && st.grid.visible && st.grid.smooth && st.grid.gridId === g.id && st.grid.fieldId === f.id;
+    };
+    const sm = await smoothRaster(d, `${rkey}|${F}`, r, F, wanted);
+    if (!sm) return;
+    data = sm;
+  }
+  const n = r.width * F * r.height * F;
+  const img = new ImageData(r.width * F, r.height * F);
+  const px = new Uint32Array(img.data.buffer);
   let legend: Legend;
   if (r.column.kind === "categorical") {
     const cats = f.categories ?? [];
     const byName = gridPalette(g.id, f.id);
     const palette = cats.map((c) => byName.get(c.name) ?? MISSING);
-    const hiddenCode = cats.map((c) => s.grid.hidden.has(c.name));
-    for (let i = 0; i < r.width * r.height; i++) {
-      const c = r.column.codes[i];
-      if (c > 0 && !hiddenCode[c - 1]) img.data.set(palette[c - 1], i * 4);
-    }
+    // Pixel per code; 0 (transparent) for missing and hidden labels.
+    const packed = new Uint32Array(Math.max(cats.length, r.column.nCategories) + 1);
+    cats.forEach((c, i) => {
+      if (!s.grid.hidden.has(c.name)) packed[i + 1] = packRgba(palette[i]);
+    });
+    for (let i = 0; i < n; i++) px[i] = packed[data[i]];
     legend = {
       kind: "categorical",
       label: `${g.label}: ${f.label}`,
@@ -418,12 +481,11 @@ async function buildGridSlot(slot: number) {
     const lo = f.stats?.min ?? 0;
     const hi = f.stats?.max ?? 1;
     const span = hi - lo || 1;
-    const lut = colormapLut(s.grid.colormap);
-    for (let i = 0; i < r.width * r.height; i++) {
-      const x = r.column.values[i];
+    const lut = new Uint32Array(Uint8Array.from(colormapLut(s.grid.colormap)).buffer);
+    for (let i = 0; i < n; i++) {
+      const x = data[i];
       if (!Number.isFinite(x)) continue;
-      const t = Math.max(0, Math.min(255, Math.round(((x - lo) / span) * 255)));
-      img.data.set(lut.subarray(t * 4, t * 4 + 4), i * 4);
+      px[i] = lut[Math.max(0, Math.min(255, Math.round(((x - lo) / span) * 255)))];
     }
     legend = { kind: "numeric", label: `${g.label}: ${f.label}`, field: f, range: [lo, hi], colormap: s.grid.colormap, note: "min – max (this section)" };
   }

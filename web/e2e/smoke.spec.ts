@@ -112,7 +112,7 @@ test("panning away and back re-creates tile layers without errors", async ({ pag
 });
 
 // Grid (niche) categories can be shown/hidden from the legend, like cell categories.
-test("grid legend categories toggle and change the drawn layer", async ({ page }) => {
+test("grid: categories toggle, colours change, smoothing switches, and the drawn layer follows", async ({ page }) => {
   await page.goto("/?section=A");
   await expect(page.locator(".legend-title").first()).toContainText("fine_cell_type");
   const gridBox = page.locator("section", { has: page.getByRole("heading", { name: "Segmentation-free grids" }) });
@@ -139,6 +139,36 @@ test("grid legend categories toggle and change the drawn layer", async ({ page }
 
   await legend.getByRole("button", { name: "show all" }).click();
   await expect(legend.locator(".cats li.off")).toHaveCount(0);
+  await page.waitForTimeout(800);
+  expect(Buffer.compare(before, await canvas.screenshot())).toBe(0);
+
+  // The same colour controls as the cell legends: scheme, shuffle, a colour per label.
+  const swatches = legend.locator("input.sw-pick");
+  const colours = () => swatches.evaluateAll((els) => els.map((e) => (e as HTMLInputElement).value));
+  const original = await colours();
+  await legend.getByLabel("Colour scheme").selectOption("okabe");
+  await expect.poll(colours).toContain("#e69f00");
+  await page.waitForTimeout(800);
+  expect(Buffer.compare(before, await canvas.screenshot())).not.toBe(0);
+  const okabe = await colours();
+  await legend.getByRole("button", { name: "shuffle" }).click();
+  await expect.poll(colours).not.toEqual(okabe);
+  await swatches.first().fill("#123456");
+  await expect(legend).toContainText("1 picked by hand");
+  await legend.getByRole("button", { name: "reset colours" }).click();
+  await expect.poll(colours).toEqual(original);
+  await page.waitForTimeout(800);
+  expect(Buffer.compare(before, await canvas.screenshot())).toBe(0);
+
+  // Smoothed by default; without it, one square per grid point.
+  const smooth = gridBox.getByRole("checkbox", { name: "smooth" });
+  await expect(smooth).toBeChecked();
+  await expect(gridBox).toContainText(/drawn smoothed onto [\d.]+ µm pixels/);
+  await smooth.uncheck();
+  await expect(gridBox).toContainText("one square per cell");
+  await page.waitForTimeout(800);
+  expect(Buffer.compare(before, await canvas.screenshot())).not.toBe(0);
+  await smooth.check();
   await page.waitForTimeout(800);
   expect(Buffer.compare(before, await canvas.screenshot())).toBe(0);
 });

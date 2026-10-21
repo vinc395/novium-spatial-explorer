@@ -99,7 +99,7 @@ export function App() {
         recomputeColors();
       if (s.palettes !== old.palettes) savePalettes(s.palettes);
       if (s.ucell.heat !== old.ucell.heat || s.ucell.results !== old.ucell.results) buildUcellHeat();
-      if (s.grid !== old.grid) buildGridImage();
+      if (s.grid !== old.grid || s.palettes !== old.palettes) buildGridImage();
       if (s.genes !== old.genes) {
         const before = new Set(old.genes.map((g) => g.name));
         for (const g of s.genes) if (!before.has(g.name)) loadGeneTileCounts(g.name);

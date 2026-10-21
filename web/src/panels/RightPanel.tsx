@@ -6,7 +6,7 @@ import type { SectionApi } from "../api";
 import { isLr, LR_GROUPS, lrRows, type LrRow } from "../lr";
 import type { FieldInfo } from "../types";
 import { COLORMAPS, cssGradient, rgbaCss } from "../colors";
-import { recomputeColors, type Legend } from "../data";
+import { gridPaletteKey, recomputeColors, type Legend } from "../data";
 import { viewerApi } from "../viewer/Viewer";
 import { Collapsible } from "./Collapsible";
 
@@ -256,6 +256,8 @@ export function RightPanel() {
   const gridImage = p.gridImage;
   const gridVisible = useStore((s) => s.grid.visible);
   const gridHidden = useStore((s) => s.grid.hidden);
+  const gridId = useStore((s) => s.grid.gridId);
+  const gridFieldId = useStore((s) => s.grid.fieldId);
   const colorBy = useStore((s) => s.colorBy);
   const overlay = useStore((s) => s.overlay);
   const sample = useStore((s) => s.sections.find((x) => x.section_id === p.sectionId)?.sample);
@@ -368,6 +370,8 @@ export function RightPanel() {
             unit="grid squares"
             hidden={gridHidden}
             onHidden={(h) => setState({ grid: { ...getState().grid, hidden: h } })}
+            paletteKey={gridImage.legend.kind === "categorical" && gridId && gridFieldId ? gridPaletteKey(gridId, gridFieldId) : undefined}
+            onColormap={(c) => setState({ grid: { ...getState().grid, colormap: c } })}
           />
         )}
       </Collapsible>

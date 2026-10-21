@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { activePanel, getState, morphSettings, setState, useStore, type AppState, type MorphChannel } from "../store";
 import { COLORMAPS } from "../colors";
+import { smoothFactor } from "../gridSmooth";
 import { GenePicker } from "./GenePicker";
 import { SignaturesPanel } from "./SignaturesPanel";
 import { SourcePicker, type PickerGroup } from "./SourcePicker";
-import type { Manifest } from "../types";
+import type { GridInfo, Manifest } from "../types";
 
 function upd<K extends keyof AppState>(k: K, patch: Partial<AppState[K]>) {
   setState({ [k]: { ...(getState()[k] as object), ...patch } } as Partial<AppState>);
@@ -168,14 +169,24 @@ export function LeftPanel() {
               <select value={grid.colormap} onChange={(e) => upd("grid", { colormap: e.target.value })} aria-label="Grid colormap">
                 {COLORMAPS.map((c) => (<option key={c}>{c}</option>))}
               </select>
+              <label className="check" title="Cubic-spline interpolation of each label onto about 2 µm pixels; each pixel shows the label with the largest value. Display only: the grid values are unchanged.">
+                <input type="checkbox" checked={grid.smooth} onChange={(e) => upd("grid", { smooth: e.target.checked })} /> smooth
+              </label>
             </div>
             <Slider label="Opacity" value={grid.opacity} min={0} max={1} step={0.05} onChange={(v) => upd("grid", { opacity: v })} />
-            {curGrid && <p className="muted small">{curGrid.width}×{curGrid.height} cells of {curGrid.spacing_um} µm; drawn as-is (nearest), independent of cell segmentation.</p>}
+            {curGrid && <p className="muted small">{gridNote(curGrid, grid.smooth)}</p>}
           </>
         )}
       </section>
     </aside>
   );
+}
+
+/** How the grid is drawn, for the grid section. */
+function gridNote(g: GridInfo, smooth: boolean) {
+  const F = smooth ? smoothFactor(g.width, g.height, g.spacing_um) : 1;
+  const how = F > 1 ? `drawn smoothed onto ${+(g.spacing_um / F).toFixed(2)} µm pixels (cubic spline; display only)` : "drawn as-is, one square per cell";
+  return `${g.width}×${g.height} cells of ${g.spacing_um} µm; ${how}; independent of cell segmentation.`;
 }
 
 /** Says so when this section has no LR scores, and names the sections that do. */

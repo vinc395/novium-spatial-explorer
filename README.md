@@ -31,9 +31,11 @@ The command-line tool and code use the working name `xenium-web`.
   R UCell 2.14), with an **overlay** to show a second field on top
 - **Transcripts**: gene search, multi-gene colours, QV filter; exact points when zoomed
   in, density when zoomed out
-- **Niche grids** and other segmentation-free maps as their own layer
-- **Legends** to show or hide categories, choose a colour scheme, shuffle or pick each
-  category's colour, and grey out or hide cells without a value
+- **Niche grids** and other segmentation-free maps as their own layer, drawn smoothed
+  (cubic-spline interpolation of each label onto ~2 µm pixels; display only) or as one
+  square per point
+- **Legends** for cells and grids to show or hide categories, choose a colour scheme,
+  shuffle or pick each category's colour, and grey out or hide cells without a value
 - **Up to four sections side by side** with linked zoom and shared colours
 - **Cell inspector, lasso selection and CSV export** with original IDs
 - **Figure export**: the panel windows as PNG, JPEG, TIFF or PDF at up to 4× screen

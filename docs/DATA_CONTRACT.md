@@ -75,7 +75,12 @@ Every `*.ome.tif` in the folder (sorted by name: `ch0000_dapi.ome.tif` …
 - `--grid ID=FILE`: a regular grid of cell centres `x_um, y_um` (configurable)
   plus any number of label/score columns. Spacing is inferred (it must be square)
   or given with `--grid-spacing-um`. Off-grid or duplicate points are an error.
-  The grid is drawn as-is (nearest neighbour) and is never joined to cells.
+  The values are stored as-is and never joined to cells. The viewer draws a grid
+  smoothed by default (display only): each label's indicator is interpolated with a cubic
+  B-spline onto pixels of about 2 µm (as `scipy.ndimage.zoom(order=3, mode="grid-constant",
+  grid_mode=True)`) and each pixel takes the label with the largest value (missing counts
+  as a label, compared last, so the tissue edge is smoothed too); numeric fields interpolate
+  value and presence the same way. With "smooth" off it draws one square per point.
 
 IDs in annotation and LR tables that are absent from `cells.parquet` are ignored
 and counted in the warnings.
