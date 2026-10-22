@@ -80,7 +80,10 @@ Every `*.ome.tif` in the folder (sorted by name: `ch0000_dapi.ome.tif` …
   B-spline onto pixels of about 2 µm (as `scipy.ndimage.zoom(order=3, mode="grid-constant",
   grid_mode=True)`) and each pixel takes the label with the largest value (missing counts
   as a label, compared last, so the tissue edge is smoothed too); numeric fields interpolate
-  value and presence the same way. With "smooth" off it draws one square per point.
+  value and presence the same way. "Strength" adds a Gaussian blur of each label first
+  (σ 0.75–4 grid cells, as `scipy.ndimage.gaussian_filter(mode="constant", truncate=4)`),
+  so small patches give way and boundaries round off; the weakest setting is the spline
+  alone. With "smooth" off it draws one square per point.
 
 IDs in annotation and LR tables that are absent from `cells.parquet` are ignored
 and counted in the warnings.

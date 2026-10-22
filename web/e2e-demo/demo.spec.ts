@@ -62,6 +62,8 @@ test("the online demo works from static files alone", async ({ page }) => {
   await expect(page.locator(".legend", { hasText: "niches: niche_label" })).toBeVisible();
   await expect(gridBox.getByRole("checkbox", { name: "smooth" })).toBeChecked();
   await expect(gridBox).toContainText(/drawn smoothed onto [\d.]+ µm pixels/);
+  await gridBox.getByLabel(/Strength/).fill("3");
+  await expect(gridBox).toContainText(/after a Gaussian of σ [\d.]+ µm/);
   expect(served.get("grids") ?? 0).toBeGreaterThan(0);
 
   // Side by side with the second section.

@@ -13,17 +13,25 @@ const bytes = (b64: string) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)
 describe("smooth label grids", () => {
   it("matches SciPy: cubic-spline zoom of each label, then the largest (synthetic labels)", () => {
     // gridSmooth.scipy.json, written by scripts/grid_smooth_reference.py: SciPy's
-    // ndimage.zoom(order=3, mode="grid-constant", grid_mode=True) per label and an argmax
-    // with missing last, on blobs with a ragged missing margin and single-point specks, at
-    // factors 5, 3 and 2.
-    expect(reference.cases.length).toBe(4);
+    // ndimage.zoom(order=3, mode="grid-constant", grid_mode=True) per label (after
+    // ndimage.gaussian_filter for the stronger settings) and an argmax with missing last,
+    // on blobs with a ragged missing margin and single-point specks, at factors 5, 3 and 2.
+    expect(reference.cases.map((c) => c.sigma)).toEqual([0, 0, 0, 0, 0.75, 2, 4, 1.25]);
     for (const c of reference.cases) {
-      const out = smoothLabels(bytes(c.codes), c.W, c.H, c.F);
+      const out = smoothLabels(bytes(c.codes), c.W, c.H, c.F, c.sigma);
       const want = bytes(c.expected);
       let differ = 0;
       for (let i = 0; i < want.length; i++) if (out[i] !== want[i]) differ++;
-      expect(differ, `${c.W}×${c.H} at ${c.F}×`).toBe(0);
+      expect(differ, `${c.W}×${c.H} at ${c.F}×, sigma ${c.sigma}`).toBe(0);
     }
+  });
+
+  it("smooths more strongly with a Gaussian: small patches give way", () => {
+    const g = grid(Array.from({ length: 9 }, (_, y) => (y === 4 ? "111121111" : "111111111")));
+    expect(cell(smoothLabels(g.codes, g.W, g.H, 5), g.W, 5, 4, 4)).toBe(2); // the spline keeps it
+    expect(new Set(smoothLabels(g.codes, g.W, g.H, 5, 0.75))).toEqual(new Set([1]));
+    const u = grid(Array.from({ length: 7 }, () => "2222222"));
+    expect([...new Set(smoothLabels(u.codes, u.W, u.H, 4, 2))]).toEqual([2]);
   });
 
   it("keeps every grid point's own label at its centre (the spline interpolates)", () => {
@@ -75,6 +83,14 @@ describe("smooth numeric grids", () => {
     for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) expect(cell(out, W, F, x, y)).toBeCloseTo(values[y * W + x], 4);
     // The spline reproduces straight lines away from the grid's edge.
     for (let ox = 6 * F; ox < (W - 6) * F; ox++) expect(out[6 * F * OW + ox]).toBeCloseTo(((ox + 0.5) / F - 0.5) * 0.5 + 1, 3);
+  });
+
+  it("keeps a constant field constant when blurred", () => {
+    const W = 12, H = 9, F = 3;
+    const values = Float32Array.from({ length: W * H }, (_, i) => (i % W < 2 ? NaN : 3));
+    const out = smoothValues(values, W, H, F, 2);
+    for (const v of out) if (Number.isFinite(v)) expect(v).toBeCloseTo(3, 4);
+    expect(out.some((v) => Number.isFinite(v))).toBe(true);
   });
 
   it("is missing where missing would win as a label", () => {

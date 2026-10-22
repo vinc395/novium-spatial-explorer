@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { activePanel, getState, morphSettings, setState, useStore, type AppState, type MorphChannel } from "../store";
 import { COLORMAPS } from "../colors";
-import { smoothFactor } from "../gridSmooth";
+import { SMOOTH_SIGMAS, smoothFactor } from "../gridSmooth";
 import { GenePicker } from "./GenePicker";
 import { SignaturesPanel } from "./SignaturesPanel";
 import { SourcePicker, type PickerGroup } from "./SourcePicker";
@@ -11,9 +11,9 @@ function upd<K extends keyof AppState>(k: K, patch: Partial<AppState[K]>) {
   setState({ [k]: { ...(getState()[k] as object), ...patch } } as Partial<AppState>);
 }
 
-function Slider(p: { label: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; fmt?: (v: number) => string }) {
+function Slider(p: { label: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; fmt?: (v: number) => string; title?: string }) {
   return (
-    <label className="slider">
+    <label className="slider" title={p.title}>
       <span>{p.label}</span>
       <input type="range" min={p.min} max={p.max} step={p.step} value={p.value} onChange={(e) => p.onChange(Number(e.target.value))} />
       <span className="val">{p.fmt ? p.fmt(p.value) : p.value}</span>
@@ -173,8 +173,20 @@ export function LeftPanel() {
                 <input type="checkbox" checked={grid.smooth} onChange={(e) => upd("grid", { smooth: e.target.checked })} /> smooth
               </label>
             </div>
+            {grid.smooth && curGrid && (
+              <Slider
+                label="Strength"
+                title="How strongly to smooth: weakest is the spline alone (every grid point keeps its label); stronger settings first blur each label with a Gaussian of this σ, so small patches give way and boundaries round off. Display only."
+                value={grid.smoothLevel}
+                min={0}
+                max={SMOOTH_SIGMAS.length - 1}
+                step={1}
+                fmt={(v) => (v ? `σ ${+(SMOOTH_SIGMAS[v] * curGrid.spacing_um).toFixed(1)} µm` : "spline")}
+                onChange={(v) => upd("grid", { smoothLevel: v })}
+              />
+            )}
             <Slider label="Opacity" value={grid.opacity} min={0} max={1} step={0.05} onChange={(v) => upd("grid", { opacity: v })} />
-            {curGrid && <p className="muted small">{gridNote(curGrid, grid.smooth)}</p>}
+            {curGrid && <p className="muted small">{gridNote(curGrid, grid.smooth, grid.smoothLevel)}</p>}
           </>
         )}
       </section>
@@ -183,9 +195,10 @@ export function LeftPanel() {
 }
 
 /** How the grid is drawn, for the grid section. */
-function gridNote(g: GridInfo, smooth: boolean) {
+function gridNote(g: GridInfo, smooth: boolean, level: number) {
   const F = smooth ? smoothFactor(g.width, g.height, g.spacing_um) : 1;
-  const how = F > 1 ? `drawn smoothed onto ${+(g.spacing_um / F).toFixed(2)} µm pixels (cubic spline; display only)` : "drawn as-is, one square per cell";
+  const blur = level ? `, after a Gaussian of σ ${+(SMOOTH_SIGMAS[level] * g.spacing_um).toFixed(1)} µm` : "";
+  const how = F > 1 ? `drawn smoothed onto ${+(g.spacing_um / F).toFixed(2)} µm pixels (cubic spline${blur}; display only)` : "drawn as-is, one square per cell";
   return `${g.width}×${g.height} cells of ${g.spacing_um} µm; ${how}; independent of cell segmentation.`;
 }
 

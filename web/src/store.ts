@@ -171,8 +171,9 @@ export interface AppState {
   };
   genes: GeneSel[];
   /** `hidden`: category names not drawn (categorical grid fields only); `smooth`: drawn
-   * smoothed onto ~2 µm pixels (display only; gridSmooth.ts). */
-  grid: { gridId?: string; fieldId?: string; visible: boolean; opacity: number; colormap: string; hidden: Set<string>; smooth: boolean };
+   * smoothed onto ~2 µm pixels (display only; gridSmooth.ts), with strength `smoothLevel`
+   * (an index into SMOOTH_SIGMAS; 0 = the spline alone). */
+  grid: { gridId?: string; fieldId?: string; visible: boolean; opacity: number; colormap: string; hidden: Set<string>; smooth: boolean; smoothLevel: number };
 }
 
 export function emptyPanel(slot: number): PanelData {
@@ -209,7 +210,7 @@ export const initialState: AppState = {
   },
   transcripts: { visible: true, pointSize: 3, opacity: 0.9, qvMin: 20, showUnassigned: true, mode: "auto" },
   genes: [],
-  grid: { visible: true, opacity: 0.5, colormap: "viridis", hidden: new Set(), smooth: true },
+  grid: { visible: true, opacity: 0.5, colormap: "viridis", hidden: new Set(), smooth: true, smoothLevel: 0 },
 };
 
 let state: AppState = initialState;

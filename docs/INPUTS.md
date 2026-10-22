@@ -216,8 +216,9 @@ Grids are independent of the cells. The viewer draws them smoothed (display only
 label is interpolated with a cubic B-spline onto pixels of about 2 µm, as
 `scipy.ndimage.zoom(order=3)` does, and each pixel takes the label with the largest value;
 numeric values are interpolated the same way), or as one square per point with "smooth"
-off. Their legends have the same colour controls as the cell legends. Repeat `--grid` for
-several grids.
+off. "Strength" smooths more: each label is first blurred with a Gaussian (σ 0.75–4 grid
+points), so small patches give way and boundaries round off. Their legends have the same
+colour controls as the cell legends. Repeat `--grid` for several grids.
 
 ## 7. Per-sample information (shown in the Index panel)
 

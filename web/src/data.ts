@@ -5,7 +5,7 @@
 import { ApiError, getBuffer, listSections, SectionApi, ucellApi } from "./api";
 import { decodeCentroids, decodeField, decodeGeneTiles, decodeGridRaster, type FieldColumn, type GridRaster } from "./codecs";
 import { colormapLut, MISSING, type RGBA } from "./colors";
-import { labelSmoother, smoothFactor, valueSmoother } from "./gridSmooth";
+import { labelSmoother, SMOOTH_SIGMAS, smoothFactor, valueSmoother } from "./gridSmooth";
 import { categoryPalette, type PaletteChoice } from "./palettes";
 import { geneIdsByName, getState, panelBySlot, resetPanel, setPanel, setState, setUcell, ucellResultByKey, type ColorBy, type Overlay } from "./store";
 import type { BinGrid, FieldInfo, Manifest, UcellJob, UcellResult } from "./types";
@@ -386,12 +386,14 @@ export async function buildGridImage(onlySlot?: number) {
   await Promise.all(slots.map((s) => buildGridSlot(s)));
 }
 
-/** A grid raster smoothed to F× the resolution, in slices of about 12 ms so the page stays
- * responsive; null when it stops being wanted before it is done. */
-function smoothRaster(d: SectionData, key: string, r: GridRaster, F: number, wanted: () => boolean): Promise<ArrayLike<number> | null> {
+/** A grid raster smoothed to F× the resolution (after a Gaussian of `sigma` cells), in
+ * slices of about 12 ms so the page stays responsive; null when it stops being wanted
+ * before it is done. */
+function smoothRaster(d: SectionData, key: string, r: GridRaster, F: number, sigma: number, wanted: () => boolean): Promise<ArrayLike<number> | null> {
   if (d.smoothed?.key === key) return d.smoothed.out;
   const out = (async () => {
-    const sm = r.column.kind === "categorical" ? labelSmoother(r.column.codes, r.width, r.height, F) : valueSmoother(r.column.values, r.width, r.height, F);
+    const c = r.column;
+    const sm = c.kind === "categorical" ? labelSmoother(c.codes, r.width, r.height, F, sigma) : valueSmoother(c.values, r.width, r.height, F, sigma);
     for (let i = 0; i < sm.steps; ) {
       await new Promise((res) => setTimeout(res, 0));
       if (!wanted()) return null;
@@ -435,7 +437,7 @@ async function buildGridSlot(slot: number) {
     const byName = gridPalette(g.id, f.id);
     return (f.categories ?? []).map((c) => (st.grid.hidden.has(c.name) ? "-" : String(byName.get(c.name) ?? MISSING))).join(";");
   };
-  const want = (st: typeof s) => `${keyOf(slot)}|${st.grid.gridId}|${st.grid.fieldId}|${st.grid.smooth}|${look(st)}`;
+  const want = (st: typeof s) => `${keyOf(slot)}|${st.grid.gridId}|${st.grid.fieldId}|${st.grid.smooth}|${st.grid.smoothLevel}|${look(st)}`;
   const key = want(s);
   if (p.gridImage?.key === key) return; // e.g. only the opacity changed
   const rkey = `${g.id}/${f.id}`;
@@ -447,13 +449,14 @@ async function buildGridSlot(slot: number) {
   }
   const r = await rp;
   const F = s.grid.smooth ? smoothFactor(r.width, r.height, g.spacing_um) : 1;
+  const level = s.grid.smoothLevel;
   let data: ArrayLike<number> = r.column.kind === "categorical" ? r.column.codes : r.column.values;
   if (F > 1) {
     const wanted = () => {
       const st = getState();
-      return bySlot.get(slot) === d && st.grid.visible && st.grid.smooth && st.grid.gridId === g.id && st.grid.fieldId === f.id;
+      return bySlot.get(slot) === d && st.grid.visible && st.grid.smooth && st.grid.smoothLevel === level && st.grid.gridId === g.id && st.grid.fieldId === f.id;
     };
-    const sm = await smoothRaster(d, `${rkey}|${F}`, r, F, wanted);
+    const sm = await smoothRaster(d, `${rkey}|${F}|${level}`, r, F, SMOOTH_SIGMAS[level] ?? 0, wanted);
     if (!sm) return;
     data = sm;
   }

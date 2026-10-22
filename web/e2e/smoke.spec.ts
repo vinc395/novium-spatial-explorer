@@ -112,7 +112,7 @@ test("panning away and back re-creates tile layers without errors", async ({ pag
 });
 
 // Grid (niche) categories can be shown/hidden from the legend, like cell categories.
-test("grid: categories toggle, colours change, smoothing switches, and the drawn layer follows", async ({ page }) => {
+test("grid: categories toggle, colours change, smoothing switches and strengthens, and the drawn layer follows", async ({ page }) => {
   await page.goto("/?section=A");
   await expect(page.locator(".legend-title").first()).toContainText("fine_cell_type");
   const gridBox = page.locator("section", { has: page.getByRole("heading", { name: "Segmentation-free grids" }) });
@@ -160,10 +160,21 @@ test("grid: categories toggle, colours change, smoothing switches, and the drawn
   await page.waitForTimeout(800);
   expect(Buffer.compare(before, await canvas.screenshot())).toBe(0);
 
-  // Smoothed by default; without it, one square per grid point.
+  // Smoothed by default; stronger smoothing blurs each label first, and the weakest
+  // setting is the spline alone.
   const smooth = gridBox.getByRole("checkbox", { name: "smooth" });
   await expect(smooth).toBeChecked();
   await expect(gridBox).toContainText(/drawn smoothed onto [\d.]+ µm pixels/);
+  const strength = gridBox.getByLabel(/Strength/);
+  await expect(strength).toHaveValue("0");
+  await strength.fill("4");
+  await expect(gridBox).toContainText(/after a Gaussian of σ [\d.]+ µm/);
+  await page.waitForTimeout(800);
+  expect(Buffer.compare(before, await canvas.screenshot())).not.toBe(0);
+  await strength.fill("0");
+  await page.waitForTimeout(800);
+  expect(Buffer.compare(before, await canvas.screenshot())).toBe(0);
+  // Without smoothing, one square per grid point.
   await smooth.uncheck();
   await expect(gridBox).toContainText("one square per cell");
   await page.waitForTimeout(800);

@@ -32,8 +32,8 @@ The command-line tool and code use the working name `xenium-web`.
 - **Transcripts**: gene search, multi-gene colours, QV filter; exact points when zoomed
   in, density when zoomed out
 - **Niche grids** and other segmentation-free maps as their own layer, drawn smoothed
-  (cubic-spline interpolation of each label onto ~2 µm pixels; display only) or as one
-  square per point
+  (cubic-spline interpolation of each label onto ~2 µm pixels, with a strength slider that
+  adds a Gaussian blur; display only) or as one square per point
 - **Legends** for cells and grids to show or hide categories, choose a colour scheme,
   shuffle or pick each category's colour, and grey out or hide cells without a value
 - **Up to four sections side by side** with linked zoom and shared colours
