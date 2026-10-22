@@ -1,0 +1,908 @@
+{
+  "schema_version": 2,
+  "section_id": "DEMO2",
+  "display_name": "Demo 2 (synthetic, mirrored H&E)",
+  "created_by": "xenium-web 0.1.0",
+  "created_at_unix": 1792627770,
+  "world_frame": "xenium_um",
+  "bounds_um": [
+    160.0172576904297,
+    120.30249786376953,
+    631.8698120117188,
+    447.8410339355469
+  ],
+  "grid": {
+    "tile_size_um": 256.0
+  },
+  "xenium": {
+    "pixel_size_um": 0.2125,
+    "analysis_sw_version": "xenium-web-synthetic",
+    "panel_name": "Synthetic panel (not biological)",
+    "panel_num_targets": 30,
+    "num_cells_reported": 384,
+    "transcripts_reported": null
+  },
+  "sources": [
+    {
+      "role": "experiment.xenium",
+      "file_name": "experiment.xenium",
+      "size_bytes": 320,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "6bd1ebee5a963ce106ca6445c9aea120e4bc25fac286e178d656f059000154e7"
+    },
+    {
+      "role": "cells",
+      "file_name": "cells.parquet",
+      "size_bytes": 24556,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "34cb1433123beb3c728e37871054980feb6d526dedaca57d6bfaf113456d1e3a"
+    },
+    {
+      "role": "cell_boundaries",
+      "file_name": "cell_boundaries.parquet",
+      "size_bytes": 70729,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "0e999e5d003176a329b9652f499cdf71cb5992d15587b23b240e3ec248e4a39c"
+    },
+    {
+      "role": "nucleus_boundaries",
+      "file_name": "nucleus_boundaries.parquet",
+      "size_bytes": 39571,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "e49d00ae822dae35b255c81db1b3d8b28ea355ee45a2fcab16d29342c4ee4de4"
+    },
+    {
+      "role": "annotations",
+      "file_name": "cell_annotations.csv",
+      "size_bytes": 15344,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "ceeaead5bd20a285e096adab9c9b52ec0776f2de99cb13f71f9c7315ae7b0f2d"
+    },
+    {
+      "role": "transcripts",
+      "file_name": "transcripts.parquet",
+      "size_bytes": 1640905,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "dd00abbcc3a1809f4b89e3f2e09c8469390b180b265047e17f454d9f100c5714"
+    },
+    {
+      "role": "image:he",
+      "file_name": "he.tif",
+      "size_bytes": 128491,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "bccbc760309cc34c1e862173ebede79ebb1f7b21c572fd388ea8fa86b2f7272f"
+    },
+    {
+      "role": "alignment:he",
+      "file_name": "he_imagealignment.csv",
+      "size_bytes": 141,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "36a4d48c08305cc1e2aad50bbe804ee71b97baa0ffe058ff3249ddb8565f0aa5"
+    }
+  ],
+  "cells": {
+    "count": 384,
+    "boundaries": {
+      "polygons": 384,
+      "vertices": 5376,
+      "query_margin_um": 10.0,
+      "chunks": [
+        [
+          0,
+          0,
+          35
+        ],
+        [
+          1,
+          0,
+          98
+        ],
+        [
+          2,
+          0,
+          35
+        ],
+        [
+          0,
+          1,
+          45
+        ],
+        [
+          1,
+          1,
+          126
+        ],
+        [
+          2,
+          1,
+          45
+        ]
+      ],
+      "skipped_polygons": 0
+    },
+    "nuclei": {
+      "polygons": 384,
+      "vertices": 3840,
+      "query_margin_um": 5.0,
+      "chunks": [
+        [
+          0,
+          0,
+          35
+        ],
+        [
+          1,
+          0,
+          98
+        ],
+        [
+          2,
+          0,
+          35
+        ],
+        [
+          0,
+          1,
+          45
+        ],
+        [
+          1,
+          1,
+          126
+        ],
+        [
+          2,
+          1,
+          45
+        ]
+      ],
+      "skipped_polygons": 0
+    },
+    "fields": [
+      {
+        "id": "transcript_counts",
+        "label": "transcript_counts",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 49.0,
+          "max": 149.0,
+          "mean": 99.1328125,
+          "p01": 51.0,
+          "p99": 147.0,
+          "n_valid": 384,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "control_probe_counts",
+        "label": "control_probe_counts",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 0.0,
+          "max": 5.0,
+          "mean": 0.9973958333333334,
+          "p01": 0.0,
+          "p99": 4.0,
+          "n_valid": 384,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "total_counts",
+        "label": "total_counts",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 50.0,
+          "max": 150.0,
+          "mean": 100.13020833333333,
+          "p01": 51.0,
+          "p99": 148.0,
+          "n_valid": 384,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "cell_area",
+        "label": "cell_area",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 122.11181640625,
+          "max": 230.29745483398438,
+          "mean": 171.7962153752645,
+          "p01": 125.94161987304688,
+          "p99": 222.84886169433594,
+          "n_valid": 384,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "nucleus_area",
+        "label": "nucleus_area",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 25.234798431396484,
+          "max": 45.67118835449219,
+          "mean": 34.43216758966446,
+          "p01": 25.83101463317871,
+          "p99": 43.7059211730957,
+          "n_valid": 384,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "segmentation_method",
+        "label": "segmentation_method",
+        "kind": "categorical",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": null,
+        "categories": [
+          {
+            "name": "Segmented by boundary stain (ATP1A1+CD45+E-Cadherin)",
+            "count": 329
+          },
+          {
+            "name": "Segmented by nucleus expansion of 5.0µm",
+            "count": 55
+          }
+        ],
+        "provenance": {}
+      },
+      {
+        "id": "fine_cell_type",
+        "label": "fine_cell_type",
+        "kind": "categorical",
+        "group": "annotation",
+        "source_file": "cell_annotations.csv",
+        "stats": null,
+        "categories": [
+          {
+            "name": "B cell 1",
+            "count": 5
+          },
+          {
+            "name": "B cell 10",
+            "count": 8
+          },
+          {
+            "name": "B cell 11",
+            "count": 1
+          },
+          {
+            "name": "B cell 2",
+            "count": 7
+          },
+          {
+            "name": "B cell 3",
+            "count": 6
+          },
+          {
+            "name": "B cell 4",
+            "count": 11
+          },
+          {
+            "name": "B cell 5",
+            "count": 5
+          },
+          {
+            "name": "B cell 6",
+            "count": 6
+          },
+          {
+            "name": "B cell 7",
+            "count": 3
+          },
+          {
+            "name": "B cell 8",
+            "count": 8
+          },
+          {
+            "name": "B cell 9",
+            "count": 9
+          },
+          {
+            "name": "Endothelial 1",
+            "count": 2
+          },
+          {
+            "name": "Endothelial 10",
+            "count": 12
+          },
+          {
+            "name": "Endothelial 11",
+            "count": 6
+          },
+          {
+            "name": "Endothelial 2",
+            "count": 9
+          },
+          {
+            "name": "Endothelial 3",
+            "count": 6
+          },
+          {
+            "name": "Endothelial 4",
+            "count": 9
+          },
+          {
+            "name": "Endothelial 5",
+            "count": 9
+          },
+          {
+            "name": "Endothelial 6",
+            "count": 5
+          },
+          {
+            "name": "Endothelial 7",
+            "count": 4
+          },
+          {
+            "name": "Endothelial 8",
+            "count": 7
+          },
+          {
+            "name": "Endothelial 9",
+            "count": 10
+          },
+          {
+            "name": "Epithelial 1",
+            "count": 7
+          },
+          {
+            "name": "Epithelial 10",
+            "count": 10
+          },
+          {
+            "name": "Epithelial 11",
+            "count": 14
+          },
+          {
+            "name": "Epithelial 2",
+            "count": 12
+          },
+          {
+            "name": "Epithelial 3",
+            "count": 7
+          },
+          {
+            "name": "Epithelial 4",
+            "count": 8
+          },
+          {
+            "name": "Epithelial 5",
+            "count": 13
+          },
+          {
+            "name": "Epithelial 6",
+            "count": 11
+          },
+          {
+            "name": "Epithelial 7",
+            "count": 8
+          },
+          {
+            "name": "Epithelial 8",
+            "count": 8
+          },
+          {
+            "name": "Epithelial 9",
+            "count": 7
+          },
+          {
+            "name": "Myeloid 1",
+            "count": 2
+          },
+          {
+            "name": "Myeloid 10",
+            "count": 2
+          },
+          {
+            "name": "Myeloid 11",
+            "count": 8
+          },
+          {
+            "name": "Myeloid 2",
+            "count": 3
+          },
+          {
+            "name": "Myeloid 3",
+            "count": 3
+          },
+          {
+            "name": "Myeloid 4",
+            "count": 2
+          },
+          {
+            "name": "Myeloid 5",
+            "count": 1
+          },
+          {
+            "name": "Myeloid 6",
+            "count": 3
+          },
+          {
+            "name": "Myeloid 7",
+            "count": 1
+          },
+          {
+            "name": "Myeloid 8",
+            "count": 3
+          },
+          {
+            "name": "Myeloid 9",
+            "count": 5
+          },
+          {
+            "name": "Smooth muscle 1",
+            "count": 3
+          },
+          {
+            "name": "Smooth muscle 10",
+            "count": 4
+          },
+          {
+            "name": "Smooth muscle 11",
+            "count": 2
+          },
+          {
+            "name": "Smooth muscle 3",
+            "count": 5
+          },
+          {
+            "name": "Smooth muscle 4",
+            "count": 3
+          },
+          {
+            "name": "Smooth muscle 5",
+            "count": 4
+          },
+          {
+            "name": "Smooth muscle 6",
+            "count": 2
+          },
+          {
+            "name": "Smooth muscle 7",
+            "count": 4
+          },
+          {
+            "name": "Smooth muscle 8",
+            "count": 1
+          },
+          {
+            "name": "Smooth muscle 9",
+            "count": 3
+          },
+          {
+            "name": "T cell 1",
+            "count": 3
+          },
+          {
+            "name": "T cell 10",
+            "count": 9
+          },
+          {
+            "name": "T cell 11",
+            "count": 1
+          },
+          {
+            "name": "T cell 2",
+            "count": 5
+          },
+          {
+            "name": "T cell 3",
+            "count": 4
+          },
+          {
+            "name": "T cell 4",
+            "count": 5
+          },
+          {
+            "name": "T cell 5",
+            "count": 4
+          },
+          {
+            "name": "T cell 6",
+            "count": 4
+          },
+          {
+            "name": "T cell 7",
+            "count": 6
+          },
+          {
+            "name": "T cell 8",
+            "count": 8
+          },
+          {
+            "name": "T cell 9",
+            "count": 6
+          }
+        ],
+        "provenance": {}
+      },
+      {
+        "id": "parent_cell_type",
+        "label": "parent_cell_type",
+        "kind": "categorical",
+        "group": "annotation",
+        "source_file": "cell_annotations.csv",
+        "stats": null,
+        "categories": [
+          {
+            "name": "B cell",
+            "count": 69
+          },
+          {
+            "name": "Endothelial",
+            "count": 80
+          },
+          {
+            "name": "Epithelial",
+            "count": 107
+          },
+          {
+            "name": "Myeloid",
+            "count": 33
+          },
+          {
+            "name": "Smooth muscle",
+            "count": 32
+          },
+          {
+            "name": "T cell",
+            "count": 55
+          }
+        ],
+        "provenance": {}
+      },
+      {
+        "id": "cell_type_confidence",
+        "label": "cell_type_confidence",
+        "kind": "numeric",
+        "group": "annotation",
+        "source_file": "cell_annotations.csv",
+        "stats": {
+          "min": 0.30000001192092896,
+          "max": 0.9950000047683716,
+          "mean": 0.6396158367308005,
+          "p01": 0.3100000023841858,
+          "p99": 0.9879999756813049,
+          "n_valid": 341,
+          "n_missing": 43
+        },
+        "categories": null,
+        "provenance": {}
+      }
+    ],
+    "field_layout": "packed"
+  },
+  "transcripts": {
+    "rows_read": 40372,
+    "indexed": 40372,
+    "skipped_invalid": 0,
+    "unassigned": 1922,
+    "unknown_cell_ids": 0,
+    "qv_scale": 4.0,
+    "default_qv_min": 20.0,
+    "z_available": true,
+    "genes": [
+      {
+        "id": 0,
+        "name": "ACTA2",
+        "category": "gene",
+        "count": 1253,
+        "count_qv20": 829
+      },
+      {
+        "id": 1,
+        "name": "CCL3",
+        "category": "gene",
+        "count": 575,
+        "count_qv20": 401
+      },
+      {
+        "id": 2,
+        "name": "CCR5",
+        "category": "gene",
+        "count": 589,
+        "count_qv20": 387
+      },
+      {
+        "id": 3,
+        "name": "CD19",
+        "category": "gene",
+        "count": 1906,
+        "count_qv20": 1268
+      },
+      {
+        "id": 4,
+        "name": "CD3E",
+        "category": "gene",
+        "count": 1686,
+        "count_qv20": 1140
+      },
+      {
+        "id": 5,
+        "name": "CD68",
+        "category": "gene",
+        "count": 1268,
+        "count_qv20": 874
+      },
+      {
+        "id": 6,
+        "name": "CD79A",
+        "category": "gene",
+        "count": 1958,
+        "count_qv20": 1306
+      },
+      {
+        "id": 7,
+        "name": "CD8A",
+        "category": "gene",
+        "count": 1683,
+        "count_qv20": 1130
+      },
+      {
+        "id": 8,
+        "name": "CDH5",
+        "category": "gene",
+        "count": 2154,
+        "count_qv20": 1436
+      },
+      {
+        "id": 9,
+        "name": "COL1A1",
+        "category": "gene",
+        "count": 617,
+        "count_qv20": 417
+      },
+      {
+        "id": 10,
+        "name": "COL3A1",
+        "category": "gene",
+        "count": 601,
+        "count_qv20": 399
+      },
+      {
+        "id": 11,
+        "name": "CXCL8",
+        "category": "gene",
+        "count": 1274,
+        "count_qv20": 856
+      },
+      {
+        "id": 12,
+        "name": "CXCR2",
+        "category": "gene",
+        "count": 581,
+        "count_qv20": 406
+      },
+      {
+        "id": 13,
+        "name": "DES",
+        "category": "gene",
+        "count": 1175,
+        "count_qv20": 781
+      },
+      {
+        "id": 14,
+        "name": "EPCAM",
+        "category": "gene",
+        "count": 2744,
+        "count_qv20": 1806
+      },
+      {
+        "id": 15,
+        "name": "IL1B",
+        "category": "gene",
+        "count": 1232,
+        "count_qv20": 774
+      },
+      {
+        "id": 16,
+        "name": "IL7R",
+        "category": "gene",
+        "count": 1745,
+        "count_qv20": 1160
+      },
+      {
+        "id": 17,
+        "name": "JCHAIN",
+        "category": "gene",
+        "count": 568,
+        "count_qv20": 378
+      },
+      {
+        "id": 18,
+        "name": "KRT18",
+        "category": "gene",
+        "count": 2595,
+        "count_qv20": 1732
+      },
+      {
+        "id": 19,
+        "name": "KRT8",
+        "category": "gene",
+        "count": 2607,
+        "count_qv20": 1710
+      },
+      {
+        "id": 20,
+        "name": "MKI67",
+        "category": "gene",
+        "count": 576,
+        "count_qv20": 378
+      },
+      {
+        "id": 21,
+        "name": "MS4A1",
+        "category": "gene",
+        "count": 1989,
+        "count_qv20": 1316
+      },
+      {
+        "id": 22,
+        "name": "MYH11",
+        "category": "gene",
+        "count": 1266,
+        "count_qv20": 848
+      },
+      {
+        "id": 23,
+        "name": "MZB1",
+        "category": "gene",
+        "count": 573,
+        "count_qv20": 371
+      },
+      {
+        "id": 24,
+        "name": "PDGFRA",
+        "category": "gene",
+        "count": 566,
+        "count_qv20": 379
+      },
+      {
+        "id": 25,
+        "name": "PECAM1",
+        "category": "gene",
+        "count": 2222,
+        "count_qv20": 1509
+      },
+      {
+        "id": 26,
+        "name": "PTPRC",
+        "category": "gene",
+        "count": 584,
+        "count_qv20": 382
+      },
+      {
+        "id": 27,
+        "name": "VIM",
+        "category": "gene",
+        "count": 549,
+        "count_qv20": 347
+      },
+      {
+        "id": 28,
+        "name": "VWF",
+        "category": "gene",
+        "count": 2300,
+        "count_qv20": 1563
+      },
+      {
+        "id": 29,
+        "name": "XBP1",
+        "category": "gene",
+        "count": 553,
+        "count_qv20": 365
+      },
+      {
+        "id": 30,
+        "name": "DeprecatedCodeword_0003",
+        "category": "deprecated_codeword",
+        "count": 76,
+        "count_qv20": 56
+      },
+      {
+        "id": 31,
+        "name": "NegControlCodeword_0500",
+        "category": "negative_control_codeword",
+        "count": 79,
+        "count_qv20": 48
+      },
+      {
+        "id": 32,
+        "name": "NegControlProbe_00001",
+        "category": "negative_control_probe",
+        "count": 76,
+        "count_qv20": 52
+      },
+      {
+        "id": 33,
+        "name": "NegControlProbe_00002",
+        "category": "negative_control_probe",
+        "count": 68,
+        "count_qv20": 46
+      },
+      {
+        "id": 34,
+        "name": "UnassignedCodeword_0001",
+        "category": "unassigned_codeword",
+        "count": 84,
+        "count_qv20": 54
+      }
+    ],
+    "density_max_level": 1,
+    "density_tile_bins": 256
+  },
+  "images": [
+    {
+      "id": "he",
+      "label": "H&E",
+      "kind": "rgb",
+      "width": 1192,
+      "height": 881,
+      "tile_size": 512,
+      "levels": 3,
+      "format": "jpeg",
+      "registration": {
+        "mode": "xenium_explorer_alignment(morphology_px)",
+        "matrix_xu_from_px": [
+          [
+            -0.4993147673773499,
+            0.026167978121475,
+            682.0646069943546
+          ],
+          [
+            0.026167978121475,
+            0.4993147673773499,
+            48.45573000990795
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "approx_pixel_size_um": 0.5000000000000631,
+        "is_reflection": true,
+        "provenance": "he_imagealignment.csv"
+      },
+      "bounds_um": [
+        86.88140428055351,
+        48.45573000990795,
+        705.1185957193741,
+        519.5442699901514
+      ],
+      "source_file": "he.tif",
+      "notes": [
+        "level-0 IFD(s) [0]; 1192x881 px; 3 channel(s)",
+        "registration includes a reflection (mirror)"
+      ],
+      "tile_layout": "packed"
+    }
+  ],
+  "grids": [],
+  "warnings": [
+    "cell_annotations.csv: 1 rows have a cell_id not present in cells.parquet; ignored"
+  ]
+}

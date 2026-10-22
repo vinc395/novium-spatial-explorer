@@ -1,0 +1,1475 @@
+{
+  "schema_version": 2,
+  "section_id": "DEMO1",
+  "display_name": "Demo 1 (synthetic)",
+  "created_by": "xenium-web 0.1.0",
+  "created_at_unix": 1792627770,
+  "world_frame": "xenium_um",
+  "bounds_um": [
+    160.4615020751953,
+    120.06663513183594,
+    919.9301147460938,
+    609.9386596679688
+  ],
+  "grid": {
+    "tile_size_um": 256.0
+  },
+  "xenium": {
+    "pixel_size_um": 0.2125,
+    "analysis_sw_version": "xenium-web-synthetic",
+    "panel_name": "Synthetic panel (not biological)",
+    "panel_num_targets": 30,
+    "num_cells_reported": 1000,
+    "transcripts_reported": null
+  },
+  "sources": [
+    {
+      "role": "experiment.xenium",
+      "file_name": "experiment.xenium",
+      "size_bytes": 321,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "1efa5053fbe5c9c7457014062848ecb3fd8ebd85be3eb48486c738bf55c891e4"
+    },
+    {
+      "role": "cells",
+      "file_name": "cells.parquet",
+      "size_bytes": 58412,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "44185e1e79a194d2716efe4948aa263ecd41b9cee1913c148e95c335ef420fe6"
+    },
+    {
+      "role": "cell_boundaries",
+      "file_name": "cell_boundaries.parquet",
+      "size_bytes": 185836,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "54e223483513b7e698554c335bd44510d7efa201770752b3b9bf4b0e06f29175"
+    },
+    {
+      "role": "nucleus_boundaries",
+      "file_name": "nucleus_boundaries.parquet",
+      "size_bytes": 105112,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "a7703dcd2468d91907dc97334a59815128355b26b34e44afda45ec4d83200f28"
+    },
+    {
+      "role": "annotations",
+      "file_name": "cell_annotations.csv",
+      "size_bytes": 38486,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "59f7a45fc78ea1207da64cc79dd4878649a73733ce5f77ccec820c43f6cb34ac"
+    },
+    {
+      "role": "lr_scores",
+      "file_name": "lr_cell_scores.csv",
+      "size_bytes": 297811,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "392e1e5483977c9fcdedb7f2077387f24daa176c477aa61966d94858881105f9"
+    },
+    {
+      "role": "grid",
+      "file_name": "niche_grid.csv",
+      "size_bytes": 46836,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "2597c1a2262dff202540a81d5078d0cdc83f7adc44ea35582b3f3866f6da4d0a"
+    },
+    {
+      "role": "transcripts",
+      "file_name": "transcripts.parquet",
+      "size_bytes": 4261855,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "e5f8a8c2e0e4ec3ae4ddac5cf8b4c2d96f2bcf65c23fc61620e6d5298670cb65"
+    },
+    {
+      "role": "image:he",
+      "file_name": "he.tif",
+      "size_bytes": 7865086,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "12bfc011dbc912acc6971c7be4c6d6622c09a4275b44561100e88b29a4560663"
+    },
+    {
+      "role": "registration:he",
+      "file_name": "registration.json",
+      "size_bytes": 356,
+      "modified_unix": 1792627769,
+      "sha256_head_tail": "b81e4cf17fcea2f5610645f4fd7cc5b3e2d7e908785a2a3b304bb9822fb4dcdf"
+    },
+    {
+      "role": "morphology",
+      "file_name": "ch0000_dapi.ome.tif",
+      "size_bytes": 757451,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "fe3f868034823fc6b08f5ee6cf315069c987ac323abc4237b4a59019ddefe960"
+    },
+    {
+      "role": "morphology",
+      "file_name": "ch0001_atp1a1_cd45_e-cadherin.ome.tif",
+      "size_bytes": 862806,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "450f1fbad65722310178bf00edf24a8abc8f9d38f09aad2d25feb24382fb025b"
+    },
+    {
+      "role": "morphology",
+      "file_name": "ch0002_18s.ome.tif",
+      "size_bytes": 777520,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "5bf534c6584920002961583930e798997b92f8335dd384f2031ce9278d67dd10"
+    },
+    {
+      "role": "morphology",
+      "file_name": "ch0003_alphasma_vimentin.ome.tif",
+      "size_bytes": 656529,
+      "modified_unix": 1792627770,
+      "sha256_head_tail": "c77aaa9aba37bbdabde13f5d4d9c7b1283fbe16d3b58f983fa0f7e53fd6badf8"
+    }
+  ],
+  "cells": {
+    "count": 1000,
+    "boundaries": {
+      "polygons": 1000,
+      "vertices": 14000,
+      "query_margin_um": 10.0,
+      "chunks": [
+        [
+          0,
+          0,
+          35
+        ],
+        [
+          1,
+          0,
+          98
+        ],
+        [
+          2,
+          0,
+          98
+        ],
+        [
+          3,
+          0,
+          49
+        ],
+        [
+          0,
+          1,
+          70
+        ],
+        [
+          1,
+          1,
+          196
+        ],
+        [
+          2,
+          1,
+          196
+        ],
+        [
+          3,
+          1,
+          98
+        ],
+        [
+          0,
+          2,
+          20
+        ],
+        [
+          1,
+          2,
+          56
+        ],
+        [
+          2,
+          2,
+          56
+        ],
+        [
+          3,
+          2,
+          28
+        ]
+      ],
+      "skipped_polygons": 0
+    },
+    "nuclei": {
+      "polygons": 1000,
+      "vertices": 10000,
+      "query_margin_um": 5.0,
+      "chunks": [
+        [
+          0,
+          0,
+          35
+        ],
+        [
+          1,
+          0,
+          98
+        ],
+        [
+          2,
+          0,
+          98
+        ],
+        [
+          3,
+          0,
+          49
+        ],
+        [
+          0,
+          1,
+          70
+        ],
+        [
+          1,
+          1,
+          196
+        ],
+        [
+          2,
+          1,
+          196
+        ],
+        [
+          3,
+          1,
+          98
+        ],
+        [
+          0,
+          2,
+          20
+        ],
+        [
+          1,
+          2,
+          56
+        ],
+        [
+          2,
+          2,
+          56
+        ],
+        [
+          3,
+          2,
+          28
+        ]
+      ],
+      "skipped_polygons": 0
+    },
+    "fields": [
+      {
+        "id": "transcript_counts",
+        "label": "transcript_counts",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 49.0,
+          "max": 149.0,
+          "mean": 98.869,
+          "p01": 50.0,
+          "p99": 147.0,
+          "n_valid": 1000,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "control_probe_counts",
+        "label": "control_probe_counts",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 0.0,
+          "max": 6.0,
+          "mean": 1.05,
+          "p01": 0.0,
+          "p99": 4.0,
+          "n_valid": 1000,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "total_counts",
+        "label": "total_counts",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 50.0,
+          "max": 150.0,
+          "mean": 99.919,
+          "p01": 51.0,
+          "p99": 149.0,
+          "n_valid": 1000,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "cell_area",
+        "label": "cell_area",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 118.51612854003906,
+          "max": 229.86343383789062,
+          "mean": 171.25689658355714,
+          "p01": 125.18035888671875,
+          "p99": 223.18072509765625,
+          "n_valid": 1000,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "nucleus_area",
+        "label": "nucleus_area",
+        "kind": "numeric",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": {
+          "min": 24.714599609375,
+          "max": 46.44906234741211,
+          "mean": 34.512552436828614,
+          "p01": 25.77234649658203,
+          "p99": 44.6473503112793,
+          "n_valid": 1000,
+          "n_missing": 0
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "segmentation_method",
+        "label": "segmentation_method",
+        "kind": "categorical",
+        "group": "cells",
+        "source_file": "cells.parquet",
+        "stats": null,
+        "categories": [
+          {
+            "name": "Segmented by boundary stain (ATP1A1+CD45+E-Cadherin)",
+            "count": 857
+          },
+          {
+            "name": "Segmented by nucleus expansion of 5.0µm",
+            "count": 143
+          }
+        ],
+        "provenance": {}
+      },
+      {
+        "id": "fine_cell_type",
+        "label": "fine_cell_type",
+        "kind": "categorical",
+        "group": "annotation",
+        "source_file": "cell_annotations.csv",
+        "stats": null,
+        "categories": [
+          {
+            "name": "B cell 1",
+            "count": 11
+          },
+          {
+            "name": "B cell 10",
+            "count": 21
+          },
+          {
+            "name": "B cell 11",
+            "count": 9
+          },
+          {
+            "name": "B cell 2",
+            "count": 8
+          },
+          {
+            "name": "B cell 3",
+            "count": 15
+          },
+          {
+            "name": "B cell 4",
+            "count": 14
+          },
+          {
+            "name": "B cell 5",
+            "count": 16
+          },
+          {
+            "name": "B cell 6",
+            "count": 20
+          },
+          {
+            "name": "B cell 7",
+            "count": 14
+          },
+          {
+            "name": "B cell 8",
+            "count": 16
+          },
+          {
+            "name": "B cell 9",
+            "count": 14
+          },
+          {
+            "name": "Endothelial 1",
+            "count": 11
+          },
+          {
+            "name": "Endothelial 10",
+            "count": 8
+          },
+          {
+            "name": "Endothelial 11",
+            "count": 7
+          },
+          {
+            "name": "Endothelial 2",
+            "count": 15
+          },
+          {
+            "name": "Endothelial 3",
+            "count": 12
+          },
+          {
+            "name": "Endothelial 4",
+            "count": 8
+          },
+          {
+            "name": "Endothelial 5",
+            "count": 15
+          },
+          {
+            "name": "Endothelial 6",
+            "count": 7
+          },
+          {
+            "name": "Endothelial 7",
+            "count": 14
+          },
+          {
+            "name": "Endothelial 8",
+            "count": 13
+          },
+          {
+            "name": "Endothelial 9",
+            "count": 9
+          },
+          {
+            "name": "Epithelial 1",
+            "count": 13
+          },
+          {
+            "name": "Epithelial 10",
+            "count": 15
+          },
+          {
+            "name": "Epithelial 11",
+            "count": 16
+          },
+          {
+            "name": "Epithelial 2",
+            "count": 10
+          },
+          {
+            "name": "Epithelial 3",
+            "count": 20
+          },
+          {
+            "name": "Epithelial 4",
+            "count": 5
+          },
+          {
+            "name": "Epithelial 5",
+            "count": 12
+          },
+          {
+            "name": "Epithelial 6",
+            "count": 11
+          },
+          {
+            "name": "Epithelial 7",
+            "count": 15
+          },
+          {
+            "name": "Epithelial 8",
+            "count": 24
+          },
+          {
+            "name": "Epithelial 9",
+            "count": 15
+          },
+          {
+            "name": "Fibroblast 1",
+            "count": 6
+          },
+          {
+            "name": "Fibroblast 10",
+            "count": 2
+          },
+          {
+            "name": "Fibroblast 11",
+            "count": 2
+          },
+          {
+            "name": "Fibroblast 2",
+            "count": 4
+          },
+          {
+            "name": "Fibroblast 3",
+            "count": 6
+          },
+          {
+            "name": "Fibroblast 4",
+            "count": 4
+          },
+          {
+            "name": "Fibroblast 5",
+            "count": 2
+          },
+          {
+            "name": "Fibroblast 7",
+            "count": 1
+          },
+          {
+            "name": "Fibroblast 8",
+            "count": 11
+          },
+          {
+            "name": "Fibroblast 9",
+            "count": 3
+          },
+          {
+            "name": "Myeloid 1",
+            "count": 19
+          },
+          {
+            "name": "Myeloid 10",
+            "count": 20
+          },
+          {
+            "name": "Myeloid 11",
+            "count": 20
+          },
+          {
+            "name": "Myeloid 2",
+            "count": 18
+          },
+          {
+            "name": "Myeloid 3",
+            "count": 17
+          },
+          {
+            "name": "Myeloid 4",
+            "count": 16
+          },
+          {
+            "name": "Myeloid 5",
+            "count": 12
+          },
+          {
+            "name": "Myeloid 6",
+            "count": 23
+          },
+          {
+            "name": "Myeloid 7",
+            "count": 19
+          },
+          {
+            "name": "Myeloid 8",
+            "count": 19
+          },
+          {
+            "name": "Myeloid 9",
+            "count": 23
+          },
+          {
+            "name": "Smooth muscle 1",
+            "count": 9
+          },
+          {
+            "name": "Smooth muscle 10",
+            "count": 3
+          },
+          {
+            "name": "Smooth muscle 11",
+            "count": 2
+          },
+          {
+            "name": "Smooth muscle 2",
+            "count": 11
+          },
+          {
+            "name": "Smooth muscle 3",
+            "count": 6
+          },
+          {
+            "name": "Smooth muscle 4",
+            "count": 5
+          },
+          {
+            "name": "Smooth muscle 5",
+            "count": 7
+          },
+          {
+            "name": "Smooth muscle 6",
+            "count": 6
+          },
+          {
+            "name": "Smooth muscle 7",
+            "count": 11
+          },
+          {
+            "name": "Smooth muscle 8",
+            "count": 8
+          },
+          {
+            "name": "Smooth muscle 9",
+            "count": 6
+          },
+          {
+            "name": "T cell 1",
+            "count": 12
+          },
+          {
+            "name": "T cell 10",
+            "count": 20
+          },
+          {
+            "name": "T cell 11",
+            "count": 30
+          },
+          {
+            "name": "T cell 2",
+            "count": 17
+          },
+          {
+            "name": "T cell 3",
+            "count": 15
+          },
+          {
+            "name": "T cell 4",
+            "count": 15
+          },
+          {
+            "name": "T cell 5",
+            "count": 19
+          },
+          {
+            "name": "T cell 6",
+            "count": 20
+          },
+          {
+            "name": "T cell 7",
+            "count": 22
+          },
+          {
+            "name": "T cell 8",
+            "count": 17
+          },
+          {
+            "name": "T cell 9",
+            "count": 29
+          }
+        ],
+        "provenance": {}
+      },
+      {
+        "id": "parent_cell_type",
+        "label": "parent_cell_type",
+        "kind": "categorical",
+        "group": "annotation",
+        "source_file": "cell_annotations.csv",
+        "stats": null,
+        "categories": [
+          {
+            "name": "B cell",
+            "count": 161
+          },
+          {
+            "name": "Endothelial",
+            "count": 121
+          },
+          {
+            "name": "Epithelial",
+            "count": 157
+          },
+          {
+            "name": "Fibroblast",
+            "count": 42
+          },
+          {
+            "name": "Myeloid",
+            "count": 207
+          },
+          {
+            "name": "Smooth muscle",
+            "count": 75
+          },
+          {
+            "name": "T cell",
+            "count": 218
+          }
+        ],
+        "provenance": {}
+      },
+      {
+        "id": "cell_type_confidence",
+        "label": "cell_type_confidence",
+        "kind": "numeric",
+        "group": "annotation",
+        "source_file": "cell_annotations.csv",
+        "stats": {
+          "min": 0.30000001192092896,
+          "max": 0.996999979019165,
+          "mean": 0.6495533107239523,
+          "p01": 0.3149999976158142,
+          "p99": 0.9900000095367432,
+          "n_valid": 891,
+          "n_missing": 109
+        },
+        "categories": null,
+        "provenance": {}
+      },
+      {
+        "id": "lr:CCL3_CCR5:receiver",
+        "label": "CCL3_CCR5 (receiver)",
+        "kind": "numeric",
+        "group": "lr_score",
+        "source_file": "lr_cell_scores.csv",
+        "stats": {
+          "min": -0.49970000982284546,
+          "max": 2.9858999252319336,
+          "mean": 0.504748347718072,
+          "p01": -0.486299991607666,
+          "p99": 2.89490008354187,
+          "n_valid": 968,
+          "n_missing": 32
+        },
+        "categories": null,
+        "provenance": {
+          "analysis_run_id": "SYNTH_RUN_1",
+          "method": "synthetic_method_v0",
+          "normalization": "zscore",
+          "pair_id": "CCL3_CCR5",
+          "role": "receiver"
+        }
+      },
+      {
+        "id": "lr:CCL3_CCR5:sender",
+        "label": "CCL3_CCR5 (sender)",
+        "kind": "numeric",
+        "group": "lr_score",
+        "source_file": "lr_cell_scores.csv",
+        "stats": {
+          "min": -0.4984000027179718,
+          "max": 2.999500036239624,
+          "mean": 0.49290619901713845,
+          "p01": -0.4828999936580658,
+          "p99": 2.8438000679016113,
+          "n_valid": 968,
+          "n_missing": 32
+        },
+        "categories": null,
+        "provenance": {
+          "analysis_run_id": "SYNTH_RUN_1",
+          "method": "synthetic_method_v0",
+          "normalization": "zscore",
+          "pair_id": "CCL3_CCR5",
+          "role": "sender"
+        }
+      },
+      {
+        "id": "lr:CXCL8_CXCR2:receiver",
+        "label": "CXCL8_CXCR2 (receiver)",
+        "kind": "numeric",
+        "group": "lr_score",
+        "source_file": "lr_cell_scores.csv",
+        "stats": {
+          "min": -0.49720001220703125,
+          "max": 2.974400043487549,
+          "mean": 0.49034209048052607,
+          "p01": -0.47200000286102295,
+          "p99": 2.8554000854492188,
+          "n_valid": 967,
+          "n_missing": 33
+        },
+        "categories": null,
+        "provenance": {
+          "analysis_run_id": "SYNTH_RUN_1",
+          "method": "synthetic_method_v0",
+          "normalization": "zscore",
+          "pair_id": "CXCL8_CXCR2",
+          "role": "receiver"
+        }
+      },
+      {
+        "id": "lr:CXCL8_CXCR2:sender",
+        "label": "CXCL8_CXCR2 (sender)",
+        "kind": "numeric",
+        "group": "lr_score",
+        "source_file": "lr_cell_scores.csv",
+        "stats": {
+          "min": -0.49799999594688416,
+          "max": 2.9758999347686768,
+          "mean": 0.5220736307047392,
+          "p01": -0.48080000281333923,
+          "p99": 2.8998000621795654,
+          "n_valid": 967,
+          "n_missing": 33
+        },
+        "categories": null,
+        "provenance": {
+          "analysis_run_id": "SYNTH_RUN_1",
+          "method": "synthetic_method_v0",
+          "normalization": "zscore",
+          "pair_id": "CXCL8_CXCR2",
+          "role": "sender"
+        }
+      }
+    ],
+    "field_layout": "packed"
+  },
+  "transcripts": {
+    "rows_read": 104914,
+    "indexed": 104914,
+    "skipped_invalid": 0,
+    "unassigned": 4995,
+    "unknown_cell_ids": 0,
+    "qv_scale": 4.0,
+    "default_qv_min": 20.0,
+    "z_available": true,
+    "genes": [
+      {
+        "id": 0,
+        "name": "ACTA2",
+        "category": "gene",
+        "count": 3023,
+        "count_qv20": 1983
+      },
+      {
+        "id": 1,
+        "name": "CCL3",
+        "category": "gene",
+        "count": 1543,
+        "count_qv20": 1022
+      },
+      {
+        "id": 2,
+        "name": "CCR5",
+        "category": "gene",
+        "count": 1483,
+        "count_qv20": 987
+      },
+      {
+        "id": 3,
+        "name": "CD19",
+        "category": "gene",
+        "count": 4649,
+        "count_qv20": 3035
+      },
+      {
+        "id": 4,
+        "name": "CD3E",
+        "category": "gene",
+        "count": 5786,
+        "count_qv20": 3828
+      },
+      {
+        "id": 5,
+        "name": "CD68",
+        "category": "gene",
+        "count": 5664,
+        "count_qv20": 3777
+      },
+      {
+        "id": 6,
+        "name": "CD79A",
+        "category": "gene",
+        "count": 4641,
+        "count_qv20": 3115
+      },
+      {
+        "id": 7,
+        "name": "CD8A",
+        "category": "gene",
+        "count": 5860,
+        "count_qv20": 3842
+      },
+      {
+        "id": 8,
+        "name": "CDH5",
+        "category": "gene",
+        "count": 3983,
+        "count_qv20": 2626
+      },
+      {
+        "id": 9,
+        "name": "COL1A1",
+        "category": "gene",
+        "count": 2312,
+        "count_qv20": 1568
+      },
+      {
+        "id": 10,
+        "name": "COL3A1",
+        "category": "gene",
+        "count": 2381,
+        "count_qv20": 1587
+      },
+      {
+        "id": 11,
+        "name": "CXCL8",
+        "category": "gene",
+        "count": 5579,
+        "count_qv20": 3721
+      },
+      {
+        "id": 12,
+        "name": "CXCR2",
+        "category": "gene",
+        "count": 1580,
+        "count_qv20": 1097
+      },
+      {
+        "id": 13,
+        "name": "DES",
+        "category": "gene",
+        "count": 2966,
+        "count_qv20": 1985
+      },
+      {
+        "id": 14,
+        "name": "EPCAM",
+        "category": "gene",
+        "count": 4704,
+        "count_qv20": 3126
+      },
+      {
+        "id": 15,
+        "name": "IL1B",
+        "category": "gene",
+        "count": 5635,
+        "count_qv20": 3799
+      },
+      {
+        "id": 16,
+        "name": "IL7R",
+        "category": "gene",
+        "count": 5785,
+        "count_qv20": 3857
+      },
+      {
+        "id": 17,
+        "name": "JCHAIN",
+        "category": "gene",
+        "count": 1498,
+        "count_qv20": 1014
+      },
+      {
+        "id": 18,
+        "name": "KRT18",
+        "category": "gene",
+        "count": 4699,
+        "count_qv20": 3057
+      },
+      {
+        "id": 19,
+        "name": "KRT8",
+        "category": "gene",
+        "count": 4619,
+        "count_qv20": 3057
+      },
+      {
+        "id": 20,
+        "name": "MKI67",
+        "category": "gene",
+        "count": 1476,
+        "count_qv20": 976
+      },
+      {
+        "id": 21,
+        "name": "MS4A1",
+        "category": "gene",
+        "count": 4759,
+        "count_qv20": 3250
+      },
+      {
+        "id": 22,
+        "name": "MYH11",
+        "category": "gene",
+        "count": 3043,
+        "count_qv20": 2028
+      },
+      {
+        "id": 23,
+        "name": "MZB1",
+        "category": "gene",
+        "count": 1459,
+        "count_qv20": 1021
+      },
+      {
+        "id": 24,
+        "name": "PDGFRA",
+        "category": "gene",
+        "count": 2337,
+        "count_qv20": 1521
+      },
+      {
+        "id": 25,
+        "name": "PECAM1",
+        "category": "gene",
+        "count": 3929,
+        "count_qv20": 2597
+      },
+      {
+        "id": 26,
+        "name": "PTPRC",
+        "category": "gene",
+        "count": 1602,
+        "count_qv20": 1072
+      },
+      {
+        "id": 27,
+        "name": "VIM",
+        "category": "gene",
+        "count": 1534,
+        "count_qv20": 1031
+      },
+      {
+        "id": 28,
+        "name": "VWF",
+        "category": "gene",
+        "count": 3865,
+        "count_qv20": 2516
+      },
+      {
+        "id": 29,
+        "name": "XBP1",
+        "category": "gene",
+        "count": 1470,
+        "count_qv20": 984
+      },
+      {
+        "id": 30,
+        "name": "DeprecatedCodeword_0003",
+        "category": "deprecated_codeword",
+        "count": 198,
+        "count_qv20": 141
+      },
+      {
+        "id": 31,
+        "name": "NegControlCodeword_0500",
+        "category": "negative_control_codeword",
+        "count": 212,
+        "count_qv20": 130
+      },
+      {
+        "id": 32,
+        "name": "NegControlProbe_00001",
+        "category": "negative_control_probe",
+        "count": 211,
+        "count_qv20": 133
+      },
+      {
+        "id": 33,
+        "name": "NegControlProbe_00002",
+        "category": "negative_control_probe",
+        "count": 232,
+        "count_qv20": 158
+      },
+      {
+        "id": 34,
+        "name": "UnassignedCodeword_0001",
+        "category": "unassigned_codeword",
+        "count": 197,
+        "count_qv20": 141
+      }
+    ],
+    "density_max_level": 1,
+    "density_tile_bins": 256
+  },
+  "images": [
+    {
+      "id": "he",
+      "label": "H&E",
+      "kind": "rgb",
+      "width": 1814,
+      "height": 1231,
+      "tile_size": 512,
+      "levels": 3,
+      "format": "jpeg",
+      "registration": {
+        "mode": "affine_xu_from_px",
+        "matrix_xu_from_px": [
+          [
+            0.4987820251299121,
+            -0.03487823687206265,
+            109.0722580019243
+          ],
+          [
+            0.03487823687206265,
+            0.4987820251299121,
+            26.365102689578293
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "approx_pixel_size_um": 0.49999999999999994,
+        "is_reflection": false,
+        "provenance": "registration.json synthetic ground truth (xenium-io synth)"
+      },
+      "bounds_um": [
+        66.13714841241517,
+        26.365102689578293,
+        1013.8628515875848,
+        703.6348973104217
+      ],
+      "source_file": "he.tif",
+      "notes": [
+        "level-0 IFD(s) [0]; 1814x1231 px; 3 channel(s)",
+        "OME metadata pixel size 0.5000 µm; registration implies 0.5000 µm/px"
+      ],
+      "tile_layout": "packed"
+    },
+    {
+      "id": "morph-dapi",
+      "label": "DAPI",
+      "kind": "gray",
+      "width": 933,
+      "height": 623,
+      "tile_size": 512,
+      "levels": 2,
+      "format": "jpeg",
+      "registration": {
+        "mode": "already_aligned",
+        "matrix_xu_from_px": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "approx_pixel_size_um": 1.0,
+        "is_reflection": false,
+        "provenance": "Xenium morphology pixel grid (ch0000_dapi.ome.tif)"
+      },
+      "bounds_um": [
+        0.0,
+        0.0,
+        933.0,
+        623.0
+      ],
+      "source_file": "ch0000_dapi.ome.tif",
+      "notes": [
+        "OME pixel size 1 µm differs from experiment.xenium (0.2125 µm); the OME value is used",
+        "933x623 px, 16-bit JPEG 2000; intensities [80, 3242] (0.5th-99.9th percentile of non-zero pixels) mapped linearly to 8-bit"
+      ],
+      "channel": {
+        "name": "DAPI",
+        "window": [
+          80,
+          3242
+        ],
+        "color": [
+          70,
+          130,
+          255
+        ]
+      },
+      "tile_layout": "packed"
+    },
+    {
+      "id": "morph-atp1a1-cd45-e-cadherin",
+      "label": "ATP1A1/CD45/E-Cadherin",
+      "kind": "gray",
+      "width": 933,
+      "height": 623,
+      "tile_size": 512,
+      "levels": 2,
+      "format": "jpeg",
+      "registration": {
+        "mode": "already_aligned",
+        "matrix_xu_from_px": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "approx_pixel_size_um": 1.0,
+        "is_reflection": false,
+        "provenance": "Xenium morphology pixel grid (ch0001_atp1a1_cd45_e-cadherin.ome.tif)"
+      },
+      "bounds_um": [
+        0.0,
+        0.0,
+        933.0,
+        623.0
+      ],
+      "source_file": "ch0001_atp1a1_cd45_e-cadherin.ome.tif",
+      "notes": [
+        "OME pixel size 1 µm differs from experiment.xenium (0.2125 µm); the OME value is used",
+        "933x623 px, 16-bit JPEG 2000; intensities [80, 2797] (0.5th-99.9th percentile of non-zero pixels) mapped linearly to 8-bit"
+      ],
+      "channel": {
+        "name": "ATP1A1/CD45/E-Cadherin",
+        "window": [
+          80,
+          2797
+        ],
+        "color": [
+          60,
+          220,
+          90
+        ]
+      },
+      "tile_layout": "packed"
+    },
+    {
+      "id": "morph-18s",
+      "label": "18S",
+      "kind": "gray",
+      "width": 933,
+      "height": 623,
+      "tile_size": 512,
+      "levels": 2,
+      "format": "jpeg",
+      "registration": {
+        "mode": "already_aligned",
+        "matrix_xu_from_px": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "approx_pixel_size_um": 1.0,
+        "is_reflection": false,
+        "provenance": "Xenium morphology pixel grid (ch0002_18s.ome.tif)"
+      },
+      "bounds_um": [
+        0.0,
+        0.0,
+        933.0,
+        623.0
+      ],
+      "source_file": "ch0002_18s.ome.tif",
+      "notes": [
+        "OME pixel size 1 µm differs from experiment.xenium (0.2125 µm); the OME value is used",
+        "933x623 px, 16-bit JPEG 2000; intensities [80, 999] (0.5th-99.9th percentile of non-zero pixels) mapped linearly to 8-bit"
+      ],
+      "channel": {
+        "name": "18S",
+        "window": [
+          80,
+          999
+        ],
+        "color": [
+          255,
+          180,
+          0
+        ]
+      },
+      "tile_layout": "packed"
+    },
+    {
+      "id": "morph-alphasma-vimentin",
+      "label": "alphaSMA/Vimentin",
+      "kind": "gray",
+      "width": 933,
+      "height": 623,
+      "tile_size": 512,
+      "levels": 2,
+      "format": "jpeg",
+      "registration": {
+        "mode": "already_aligned",
+        "matrix_xu_from_px": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "approx_pixel_size_um": 1.0,
+        "is_reflection": false,
+        "provenance": "Xenium morphology pixel grid (ch0003_alphasma_vimentin.ome.tif)"
+      },
+      "bounds_um": [
+        0.0,
+        0.0,
+        933.0,
+        623.0
+      ],
+      "source_file": "ch0003_alphasma_vimentin.ome.tif",
+      "notes": [
+        "OME pixel size 1 µm differs from experiment.xenium (0.2125 µm); the OME value is used",
+        "933x623 px, 16-bit JPEG 2000; intensities [80, 2389] (0.5th-99.9th percentile of non-zero pixels) mapped linearly to 8-bit"
+      ],
+      "channel": {
+        "name": "alphaSMA/Vimentin",
+        "window": [
+          80,
+          2389
+        ],
+        "color": [
+          255,
+          60,
+          170
+        ]
+      },
+      "tile_layout": "packed"
+    }
+  ],
+  "grids": [
+    {
+      "id": "niches",
+      "label": "niches",
+      "origin_um": [
+        100.0,
+        60.0
+      ],
+      "spacing_um": 20.0,
+      "width": 44,
+      "height": 30,
+      "fields": [
+        {
+          "id": "niche_label",
+          "label": "niche_label",
+          "kind": "categorical",
+          "group": "grid",
+          "source_file": "niche_grid.csv",
+          "stats": null,
+          "categories": [
+            {
+              "name": "Niche_1",
+              "count": 194
+            },
+            {
+              "name": "Niche_2",
+              "count": 210
+            },
+            {
+              "name": "Niche_3",
+              "count": 257
+            },
+            {
+              "name": "Niche_4",
+              "count": 213
+            },
+            {
+              "name": "Niche_5",
+              "count": 211
+            },
+            {
+              "name": "Niche_6",
+              "count": 235
+            }
+          ],
+          "provenance": {
+            "grid_id": "niches"
+          }
+        },
+        {
+          "id": "program_1",
+          "label": "program_1",
+          "kind": "numeric",
+          "group": "grid",
+          "source_file": "niche_grid.csv",
+          "stats": {
+            "min": 0.0010000000474974513,
+            "max": 0.9993000030517578,
+            "mean": 0.5025046972136338,
+            "p01": 0.011500000022351742,
+            "p99": 0.9868000149726868,
+            "n_valid": 1320,
+            "n_missing": 0
+          },
+          "categories": null,
+          "provenance": {
+            "grid_id": "niches"
+          }
+        },
+        {
+          "id": "program_2",
+          "label": "program_2",
+          "kind": "numeric",
+          "group": "grid",
+          "source_file": "niche_grid.csv",
+          "stats": {
+            "min": -0.10199999809265137,
+            "max": 1.0815999507904053,
+            "mean": 0.4896557417109135,
+            "p01": -0.10199999809265137,
+            "p99": 1.0815999507904053,
+            "n_valid": 1132,
+            "n_missing": 188
+          },
+          "categories": null,
+          "provenance": {
+            "grid_id": "niches"
+          }
+        }
+      ],
+      "source_file": "niche_grid.csv",
+      "resampling": "nearest"
+    }
+  ],
+  "warnings": [
+    "cell_annotations.csv: 1 rows have a cell_id not present in cells.parquet; ignored"
+  ]
+}
